@@ -1,4 +1,4 @@
-const propNames = new Set(['id', 'className', 'textContent', 'onclick']);
+const propNames = new Set(["id", "className", "textContent", "onclick"]);
 
 /**
  * Создание элемента со свойствами и вложенными элементами
@@ -25,4 +25,22 @@ export function createElement(name, props = {}, ...children) {
   }
 
   return element;
+}
+
+/**
+ * Cклонение числительных
+ * @param number {Number} Количество нажатий
+ * @param titles {Array[string]} Массив с различными окончаниями слов, в зависимость от числа
+ * @returns {String}
+ */
+export function normalizeCountForm(number, titles) {
+  return titles[
+    number % 10 === 1 && number % 100 !== 11
+      ? 0
+      : number % 10 >= 2 &&
+        number % 10 <= 4 &&
+        (number % 100 < 10 || number % 100 >= 20)
+      ? 1
+      : 0
+  ];
 }

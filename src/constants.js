@@ -1,0 +1,1 @@
+export const ARRAY_DEFAULT_SIZE = 7;
