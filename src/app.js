@@ -32,7 +32,7 @@ function App({ store }) {
                   {item.count > 0 && (
                     <span className="Item-count">
                       | Выделяли {item.count}
-                    <span>{normalizeCountForm(item.count, ["раз", "раза"])}</span>
+                    <span className="Item-count-text">{normalizeCountForm(item.count, ["раз", "раза"])}</span>
                     </span>
                   )}
                 </div>

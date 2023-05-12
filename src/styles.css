@@ -63,3 +63,7 @@ body {
 .Item-count {
   margin-left: 0.4rem;
 }
+
+.Item-count-text {
+  margin-left: 0.3rem;
+}
