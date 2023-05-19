@@ -1,21 +1,23 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import './style.css';
+import HeaderBasket from "../headerBasket";
 
-function Controls({onAdd}){
+function Controls({onOpenModal, basket}){
   return (
     <div className='Controls'>
-      <button onClick={() => onAdd()}>Добавить</button>
+      <HeaderBasket basket={basket}/>
+      <button onClick={() => onOpenModal()}>Перейти</button>
     </div>
   )
 }
 
 Controls.propTypes = {
-  onAdd: PropTypes.func
+  onOpenModal: PropTypes.func
 };
 
 Controls.defaultProps = {
-  onAdd: () => {}
+  onOpenModal: () => {}
 }
 
 export default React.memo(Controls);

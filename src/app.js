@@ -1,8 +1,10 @@
-import React, {useCallback} from 'react';
+import React, {useCallback, useState} from 'react';
 import List from "./components/list";
 import Controls from "./components/controls";
 import Head from "./components/head";
 import PageLayout from "./components/page-layout";
+import Modal from './components/modal';
+import Basket from './components/basket';
 
 /**
  * Приложение
@@ -12,29 +14,48 @@ import PageLayout from "./components/page-layout";
 function App({store}) {
 
   const list = store.getState().list;
+  const basketList = store.getState().basket.list;
+  const basket = store.getState().basket;
+
+
+ const [isBasketShow, setIsBasketShow] = useState(false);
 
   const callbacks = {
     onDeleteItem: useCallback((code) => {
       store.deleteItem(code);
     }, [store]),
 
-    onSelectItem: useCallback((code) => {
-      store.selectItem(code);
+    onAddItemToBasket: useCallback((item) => {
+      store.addBasket(item);
     }, [store]),
 
-    onAddItem: useCallback(() => {
-      store.addItem();
-    }, [store])
+    onDeleteItemFromBasket: useCallback((item) => {
+     // store.addBasket(item);
+    }, [store]),
+
+    onOpenModal: useCallback((item) => {
+      setIsBasketShow(true)
+    }, []),
+
+    onCloseModal: useCallback((item) => {
+      setIsBasketShow(false)
+    }, []),
   }
 
   return (
+    <>
+    {isBasketShow && 
+    <Modal isBasketShow={isBasketShow} title="Корзина" onCloseModal={callbacks.onCloseModal}>
+      <Basket basket={basketList}/>
+    </Modal>}
     <PageLayout>
-      <Head title='Приложение на чистом JS'/>
-      <Controls onAdd={callbacks.onAddItem}/>
+      <Head title='Магазин'/>
+      <Controls basket={basket} onOpenModal={callbacks.onOpenModal}/>
       <List list={list}
             onDeleteItem={callbacks.onDeleteItem}
-            onSelectItem={callbacks.onSelectItem}/>
+            onAddItem={callbacks.onAddItemToBasket}/>
     </PageLayout>
+    </>
   );
 }
 

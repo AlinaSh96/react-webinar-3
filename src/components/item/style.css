@@ -14,7 +14,8 @@
 }
 
 .Item-title {
-  width: 100%;
+  /* width: 100%; */
+  flex-grow: 1;
   padding: 20px 10px;
 }
 
@@ -23,3 +24,13 @@
   justify-content: flex-end;
   padding: 20px 20px 20px 10px;
 }
+
+.Item-wrap {
+  display: flex;
+  width: 100%;
+  align-items: center;
+}
+
+/* width: 100%;
+display: flex;
+margin: 15px; */
