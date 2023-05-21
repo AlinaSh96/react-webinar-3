@@ -51,7 +51,7 @@ class Store {
       basket: {
         list: newBasket,
         totalPrice: CalcTotalPrice(newBasket),
-        totalCount: --this.state.basket.totalCount,
+        totalCount: this.state.basket.totalCount-1,
       },
     });
   }
@@ -65,7 +65,7 @@ class Store {
     if (!!findItem) {
       const newBasket = this.state.basket.list.map((element) => {
         if (element.code === item.code) {
-          element.count = ++element.count;
+          element.count = element.count+1;
         }
         return element;
       });

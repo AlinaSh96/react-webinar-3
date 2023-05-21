@@ -3,18 +3,19 @@ import PropTypes from 'prop-types';
 import './style.css';
 import HeaderBasket from "../headerBasket";
 
-function Controls({onOpenModal, basket}){
+function Controls(props){
   return (
     <div className='Controls'>
-      <HeaderBasket basket={basket}/>
-      <button className='Controls-action' onClick={() => onOpenModal()}>Перейти</button>
+      <HeaderBasket totalPrice={props.totalPrice} totalCount={props.totalCount}/>
+      <button className='Controls-action' onClick={() => props.onOpenModal()}>Перейти</button>
     </div>
   )
 }
 
 Controls.propTypes = {
   onOpenModal: PropTypes.func.isRequired,
-  basket: PropTypes.object.isRequired,
+  totalPrice: PropTypes.number,
+  totalCount: PropTypes.number,
 };
 
 Controls.defaultProps = {

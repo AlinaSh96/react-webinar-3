@@ -17,7 +17,7 @@ function App({store}) {
   const list = store.getState().list;
   const basketList = store.getState().basket.list;
   const totalPrice = store.getState().basket.totalPrice;
-  const basket = store.getState().basket;
+  const totalCount = store.getState().basket.totalCount;
 
 
  const [isBasketShow, setIsBasketShow] = useState(false);
@@ -48,7 +48,7 @@ function App({store}) {
     </Modal>}
     <PageLayout>
       <Head title='Магазин'/>
-      <Controls basket={basket} onOpenModal={callbacks.onOpenModal}/>
+      <Controls totalCount={totalCount} totalPrice={totalPrice} onOpenModal={callbacks.onOpenModal}/>
       <List list={list}
             onAddItem={callbacks.onAddItemToBasket}
             ElementView={Item}/>

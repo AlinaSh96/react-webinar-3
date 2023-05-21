@@ -53,15 +53,6 @@ export function generateCode2() {
 }
 
 /**
- * Итоговая цена товаров добавленных в корзину
- * @param items {Array} Массив элементов
- * @returns {Number}
- */
-export const CalcTotalCount = (items) => {
-  return items.reduce((acc, amount) => acc + amount.count, 0);
-};
-
-/**
  * Итоговое количество товаров добавленных в корзину
  * @param items {Array} Массив элементов
  * @returns {Number}

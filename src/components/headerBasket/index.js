@@ -3,12 +3,12 @@ import PropTypes from 'prop-types';
 import './style.css';
 import {plural} from "../../utils";
 
-function HeaderBasket({basket}){
+function HeaderBasket(props){
   return (
     <div className='HeaderBasket'>
       <span>В корзине:
-        {basket.totalCount > 0 ? 
-        <span className='HeaderBasket-info'>{basket.totalCount} {plural(basket.totalCount, {one: 'товар', few: 'товара', many: 'товаров'})} / {basket.totalPrice.toLocaleString()} &#8381;</span>
+        {props.totalCount > 0 ? 
+        <span className='HeaderBasket-info'>{props.totalCount} {plural(props.totalCount, {one: 'товар', few: 'товара', many: 'товаров'})} / {props.totalPrice.toLocaleString()} &#8381;</span>
         : <span className='HeaderBasket-info'>пусто</span>
         }
         </span>
@@ -17,17 +17,8 @@ function HeaderBasket({basket}){
 }
 
 HeaderBasket.propTypes = {
-  basket: PropTypes.shape({
-    code: PropTypes.number,
-    title: PropTypes.string,
-    count: PropTypes.number,
-    price: PropTypes.number,
-  }).isRequired,
-  onAdd: PropTypes.func,
-};
-
-HeaderBasket.defaultProps = {
-  onAdd: () => {},
+  totalCount: PropTypes.number,
+  totalPrice: PropTypes.number,
 };
 
 export default React.memo(HeaderBasket);
