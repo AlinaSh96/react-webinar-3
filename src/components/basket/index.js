@@ -4,24 +4,40 @@ import "./style.css";
 import List from "../list";
 import ItemBasket from "../itemBasket";
 
-function Basket({ basket, onDeleteItem, totalPrice}) {
+function Basket({ basket, onDeleteItem, totalPrice }) {
   return (
     <div className="Basket">
-      <List list={basket} ElementView={ItemBasket}  onDeleteItem={onDeleteItem}/>
-      { basket.length && <div className="Basket-summary">
-        <p className="Basket-summary-text">Итого {totalPrice.toLocaleString()}</p></div>}
+      {basket.length > 0 ? (
+        <>
+          <List
+            list={basket}
+            ElementView={ItemBasket}
+            onDeleteItem={onDeleteItem}
+          />
+          <div className="Basket-foooter">
+              <span className="Basket-foooter-text" >Итого</span> <span>{totalPrice.toLocaleString()} &#8381;</span>
+          </div>
+        </>
+      ) : (
+        <h2>В корзине отсутвуют товары</h2>
+      )} 
     </div>
   );
 }
 
 Basket.propTypes = {
-  basket: PropTypes.array.isRequired, 
+  basket: PropTypes.arrayOf( PropTypes.shape({
+    code: PropTypes.number,
+    title: PropTypes.string,
+    count: PropTypes.number,
+    price: PropTypes.number,
+  })),
   onDeleteItem: PropTypes.func,
-  totalPrice: PropTypes.number
+  totalPrice: PropTypes.number,
 };
 
 Basket.defaultProps = {
-  onDeleteItem: () => {}
-}
+  onDeleteItem: () => {},
+};
 
 export default React.memo(Basket);

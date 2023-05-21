@@ -7,7 +7,7 @@ function ItemBasket(props) {
   const callbacks = {
     onDelete: (e) => {
       e.stopPropagation();
-      props.onDelete(props.item.code, props.item.count);
+      props.onDelete(props.item.code);
     },
   };
 

@@ -7,7 +7,7 @@ function Controls({onOpenModal, basket}){
   return (
     <div className='Controls'>
       <HeaderBasket basket={basket}/>
-      <button onClick={() => onOpenModal()}>Перейти</button>
+      <button className='Controls-action' onClick={() => onOpenModal()}>Перейти</button>
     </div>
   )
 }

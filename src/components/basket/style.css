@@ -8,11 +8,14 @@
     color: #000;
 }
 
-.Basket-summary {
-    float: right;
-    padding-right: 20%;
+.Basket-foooter {
+    display: flex;
+    justify-content: right;
+    gap: 30px;
+    font-weight: bold;
+    padding: 20px 14% 10px 10px;
 }
 
-.Basket-summary-text {
+.Basket-foooter-text {
     font-weight: bold;
 }

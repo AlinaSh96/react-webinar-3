@@ -43,8 +43,7 @@ class Store {
    * Удаление товара из корзины по коду
    * @param code
    */
-  deleteItem(code, count) {
-    console.log(count)
+  deleteItem(code) {
     const newBasket = this.state.basket.list.filter((element) => element.code !== code);
     this.setState({
       ...this.state,
@@ -52,7 +51,7 @@ class Store {
       basket: {
         list: newBasket,
         totalPrice: CalcTotalPrice(newBasket),
-        totalCount: this.state.basket.totalCount - count,
+        totalCount: --this.state.basket.totalCount,
       },
     });
   }
@@ -66,7 +65,7 @@ class Store {
     if (!!findItem) {
       const newBasket = this.state.basket.list.map((element) => {
         if (element.code === item.code) {
-          element.count = element.count + 1;
+          element.count = ++element.count;
         }
         return element;
       });
@@ -75,7 +74,7 @@ class Store {
         basket: {
           list: newBasket,
           totalPrice: CalcTotalPrice(newBasket),
-          totalCount: this.state.basket.totalCount + 1,
+          totalCount: newBasket.length,
         },
       });
     } else {

@@ -23,8 +23,8 @@ function App({store}) {
  const [isBasketShow, setIsBasketShow] = useState(false);
 
   const callbacks = {
-    onDeleteItem: useCallback((code, count) => {
-      store.deleteItem(code, count);
+    onDeleteItem: useCallback((code) => {
+      store.deleteItem(code);
     }, [store]),
 
     onAddItemToBasket: useCallback((item) => {
