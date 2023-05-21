@@ -21,7 +21,7 @@ List.propTypes = {
   })).isRequired,
   onAddItem: PropTypes.func,
   onDeleteItem: PropTypes.func,
-  ElementView: PropTypes.any,
+  ElementView: PropTypes.elementType.isRequired,
 };
 
 List.defaultProps = {

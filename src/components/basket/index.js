@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import "./style.css";
 import List from "../list";
 import ItemBasket from "../item-basket";
+import TotalBasket from "../total-basket";
 
 function Basket({ basket, onDeleteItem, totalPrice }) {
   return (
@@ -14,24 +15,24 @@ function Basket({ basket, onDeleteItem, totalPrice }) {
             ElementView={ItemBasket}
             onDeleteItem={onDeleteItem}
           />
-          <div className="Basket-foooter">
-              <span className="Basket-foooter-text" >Итого</span> <span>{totalPrice.toLocaleString()} &#8381;</span>
-          </div>
+          <TotalBasket totalPrice={totalPrice}/>
         </>
       ) : (
         <h2>В корзине отсутвуют товары</h2>
-      )} 
+      )}
     </div>
   );
 }
 
 Basket.propTypes = {
-  basket: PropTypes.arrayOf( PropTypes.shape({
-    code: PropTypes.number,
-    title: PropTypes.string,
-    count: PropTypes.number,
-    price: PropTypes.number,
-  })),
+  basket: PropTypes.arrayOf(
+    PropTypes.shape({
+      code: PropTypes.number,
+      title: PropTypes.string,
+      count: PropTypes.number,
+      price: PropTypes.number,
+    })
+  ),
   onDeleteItem: PropTypes.func,
   totalPrice: PropTypes.number,
 };
