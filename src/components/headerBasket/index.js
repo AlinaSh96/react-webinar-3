@@ -8,8 +8,8 @@ function HeaderBasket({basket}){
     <div className='HeaderBasket'>
       <span>В корзине:
         {basket.totalCount > 0 ? 
-        <span className='HeaderBasket-info'>{basket.totalCount} {plural(basket.totalCount, {one: 'товар', few: 'товара', many: 'товаров'})} / {basket.totalPrice} &#8381;</span>
-        : <span className='HeaderBasket-info'>Пусто</span>
+        <span className='HeaderBasket-info'>{basket.totalCount} {plural(basket.totalCount, {one: 'товар', few: 'товара', many: 'товаров'})} / {basket.totalPrice.toLocaleString()} &#8381;</span>
+        : <span className='HeaderBasket-info'>пусто</span>
         }
         </span>
     </div>
@@ -23,12 +23,11 @@ HeaderBasket.propTypes = {
     count: PropTypes.number,
     price: PropTypes.number,
   }).isRequired,
-  //onAdd: PropTypes.func,
+  onAdd: PropTypes.func,
 };
 
-// HeaderBasketInfo.defaultProps = {
-//   onAdd: () => {},
-// };
-
+HeaderBasket.defaultProps = {
+  onAdd: () => {},
+};
 
 export default React.memo(HeaderBasket);

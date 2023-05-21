@@ -13,7 +13,8 @@ function Controls({onOpenModal, basket}){
 }
 
 Controls.propTypes = {
-  onOpenModal: PropTypes.func
+  onOpenModal: PropTypes.func.isRequired,
+  basket: PropTypes.object.isRequired,
 };
 
 Controls.defaultProps = {

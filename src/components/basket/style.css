@@ -1,9 +1,18 @@
 .BasketHeader {
     display: flex;
     justify-content: space-between;
-    padding: 0 12px;
+    padding: 0 22px;
 }
 
 .BasketHeader-title{
     color: #000;
+}
+
+.Basket-summary {
+    float: right;
+    padding-right: 20%;
+}
+
+.Basket-summary-text {
+    font-weight: bold;
 }

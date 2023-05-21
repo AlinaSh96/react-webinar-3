@@ -1,42 +1,29 @@
 import React from "react";
-import PropTypes from 'prop-types';
-import './style.css';
+import PropTypes from "prop-types";
+import "./style.css";
 
-function Modal({
-    children,
-    title,
-    onCloseModal,
-}){
+function Modal({ children, title, onCloseModal }) {
   return (
-    <div className='Modal'>
-    <div className='Modal-overlay'>
-        <div className='Modal-content'>
-        <header className={'BasketHeader'}>
-              <h1 className={'BasketHeader-title'}>{title}</h1>
-              <button onClick={onCloseModal} className={'BasketHeader-button_close'}>
-                Закрыть
-              </button>
-        </header>
+    <div className="Modal">
+      <div className="Modal-overlay">
+        <div className="Modal-content">
+          <header className={"Modal-header"}>
+            <h1 className={"Modal-title"}>{title}</h1>
+            <div className={"Modal-button_close"}>
+              <button onClick={onCloseModal}>Закрыть</button>
+            </div>
+          </header>
           {children}
         </div>
+      </div>
     </div>
-</div>
-  )
+  );
 }
 
-// HeaderBasket.propTypes = {
-//   basket: PropTypes.shape({
-//     code: PropTypes.number,
-//     title: PropTypes.string,
-//     count: PropTypes.number,
-//     price: PropTypes.number,
-//   }).isRequired,
-//   //onAdd: PropTypes.func,
-// };
-
-// HeaderBasketInfo.defaultProps = {
-//   onAdd: () => {},
-// };
-
+Modal.propTypes = {
+  onCloseModal: PropTypes.func.isRequired,
+  title: PropTypes.string.isRequired,
+  children: PropTypes.node,
+};
 
 export default React.memo(Modal);

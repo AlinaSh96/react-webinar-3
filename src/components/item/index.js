@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import PropTypes from "prop-types";
-import { plural } from "../../utils";
 import "./style.css";
 
 function Item(props) {
@@ -18,15 +17,12 @@ function Item(props) {
   };
 
   return (
-    <div
-      className={"Item" + (props.item.selected ? " Item_selected" : "")}
-      onClick={callbacks.onClick}
-    >
+    <div className="Item">
       <div className="Item-code">{props.item.code}</div>
       <div className="Item-wrap">
         <div className="Item-title">{props.item.title}</div>
         <div className="Item-price">
-          <span>{props.item.price} &#8381;</span>
+          <span>{props.item.price.toLocaleString()} &#8381;</span>
         </div>
       </div>
       <div className="Item-actions">

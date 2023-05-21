@@ -39,16 +39,21 @@ class Store {
     // Вызываем всех слушателей
     for (const listener of this.listeners) listener();
   }
-
   /**
-   * Удаление записи по коду
+   * Удаление товара из корзины по коду
    * @param code
    */
-  deleteItem(code) {
+  deleteItem(code, count) {
+    console.log(count)
+    const newBasket = this.state.basket.list.filter((element) => element.code !== code);
     this.setState({
       ...this.state,
-      // Новый список, в котором не будет удаляемой записи
-      list: this.state.list.filter((item) => item.code !== code),
+      // Новая корзина, в которой не будет удаляемой записи
+      basket: {
+        list: newBasket,
+        totalPrice: CalcTotalPrice(newBasket),
+        totalCount: this.state.basket.totalCount - count,
+      },
     });
   }
 
@@ -83,8 +88,6 @@ class Store {
         },
       });
     }
-
-    console.log(this.state);
   }
 }
 
