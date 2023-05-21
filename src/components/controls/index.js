@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from 'prop-types';
 import './style.css';
-import HeaderBasket from "../headerBasket";
+import HeaderBasket from "../header-basket";
 
 function Controls(props){
   return (

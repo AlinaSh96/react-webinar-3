@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import "./style.css";
 import List from "../list";
-import ItemBasket from "../itemBasket";
+import ItemBasket from "../item-basket";
 
 function Basket({ basket, onDeleteItem, totalPrice }) {
   return (
