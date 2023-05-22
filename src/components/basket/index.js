@@ -18,7 +18,7 @@ function Basket({ basket, onDeleteItem, totalPrice }) {
           <TotalBasket totalPrice={totalPrice}/>
         </>
       ) : (
-        <h2>В корзине отсутвуют товары</h2>
+        <h2 className="Basket-empty">В корзине отсутвуют товары</h2>
       )}
     </div>
   );

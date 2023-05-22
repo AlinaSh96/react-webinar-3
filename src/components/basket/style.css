@@ -7,3 +7,7 @@
 .BasketHeader-title{
     color: #000;
 }
+
+.Basket-empty {
+    padding: 20px;
+}
