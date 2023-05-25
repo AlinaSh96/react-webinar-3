@@ -10,9 +10,9 @@ const root = createRoot(document.getElementById("root"));
 
 // Первый рендер приложения
 root.render(
-  <StoreContext.Provider value={store}>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
-  </StoreContext.Provider>
+    <StoreContext.Provider value={store}>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </StoreContext.Provider>
 );
