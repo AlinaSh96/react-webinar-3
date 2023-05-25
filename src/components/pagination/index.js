@@ -5,26 +5,24 @@ import {usePagination, DOTS} from '../../hooks/use-pagination'
 
 function Pagination(props){
   const paginationRange = usePagination({
-    currentPage: props.currentPage,
-    totalCount:  props.count,
-    siblingCount: 10,
-    limit:  props.limit,
+    currentPage: props?.currentPage,
+    totalCount:  props?.count,
+    limit:  props?.limit,
   });
 
   return (
     <div className='pagination'>
       <ul className='pagination-wrap'>
-      {paginationRange.map(pageNumber => {
-
+      { paginationRange.length && paginationRange.map((pageNumber, ind) => {
         if (pageNumber === DOTS) {
-          return <li className="pagination-item dots">&#8230;</li>;
+          return <li key={ind} className="pagination-item dots">&#8230;</li>;
         }
         const className = (props.currentPage === pageNumber) ? 'pagination-item selected' : 'pagination-item';
         return (
-          <li className={className}
+          <li key={ind} className={className}
               onClick={() => props.onPageChange(pageNumber)}
           >
-            {pageNumber}
+            {+pageNumber}
           </li>
         );
       })}
@@ -36,6 +34,14 @@ function Pagination(props){
 Pagination.propTypes = {
   skip: PropTypes.number,
   count: PropTypes.number,
+  count: PropTypes.number,
+  limit: PropTypes.number,
+  currentPage:  PropTypes.number,
+  onPageChange: PropTypes.func,
 };
+
+Pagination.defaultProps = {
+  onPageChange: () => {},
+}
 
 export default memo(Pagination);
