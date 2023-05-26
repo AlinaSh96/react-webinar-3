@@ -4,10 +4,12 @@ import {numberFormat} from "../../utils";
 import {cn as bem} from "@bem-react/classname";
 import PropTypes from "prop-types";
 import './style.css';
+import useTranslate from '../../hooks/use-translation';
 import { Link } from 'react-router-dom';
 
-function ItemBasket(props) {
 
+function ItemBasket(props) {
+  const { t } = useTranslate();
   const cn = bem('ItemBasket');
 
   const callbacks = {
@@ -22,8 +24,8 @@ function ItemBasket(props) {
       </Link>
       <div className={cn('right')}>
         <div className={cn('cell')}>{numberFormat(props.item.price)} ₽</div>
-        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} шт</div>
-        <div className={cn('cell')}><button onClick={callbacks.onRemove}>Удалить</button></div>
+        <div className={cn('cell')}>{numberFormat(props.item.amount || 0)} {t('Шт')}</div>
+        <div className={cn('cell')}><button onClick={callbacks.onRemove}>{t('Удалить')}</button></div>
       </div>
     </div>
   )

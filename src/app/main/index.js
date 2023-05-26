@@ -7,11 +7,13 @@ import List from "../../components/list";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
 import Pagination from '../../components/pagination';
+import useTranslate from '../../hooks/use-translation';
 
 function Main() {
   const DEFAULT_LIMIT = 10;
   const store = useStore();
   const [currentPage, setCurrentPage] = useState(1);
+  const { t } = useTranslate();
 
   useEffect(() => {
     store.actions.catalog.load(DEFAULT_LIMIT, (currentPage-1) * 10);
@@ -24,8 +26,6 @@ function Main() {
     limit: state.catalog.limit,
     amount: state.basket.amount,
     sum: state.basket.sum,
-    lang: state.locale.language,
-    translated: state.locale.translated
   }));
 
   const callbacks = {
@@ -33,8 +33,6 @@ function Main() {
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
-    // Смена языка
-    changeLang: useCallback((lang) => store.actions.locale.changeLang(lang), [store]),
   }
 
   const renders = {
@@ -45,7 +43,7 @@ function Main() {
 
   return (
     <PageLayout>
-      <Head title={select.translated['Магазин']} changeLang={callbacks.changeLang}/>
+      <Head title={t('Магазин')}/>
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
                   sum={select.sum}/>
       <List list={select.list} renderItem={renders.item}/>

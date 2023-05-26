@@ -1,9 +1,11 @@
 import {memo} from "react";
 import PropTypes from "prop-types";
-import './style.css';
+import useTranslate from '../../hooks/use-translation';
 import {cn as bem} from '@bem-react/classname';
+import './style.css';
 
 function DetailCard({detail, onAdd}){
+  const { t } = useTranslate();
   const cn = bem('DetailCard');
 
   const callbacks = {
@@ -13,11 +15,11 @@ function DetailCard({detail, onAdd}){
   return (
     <div className={cn()}>
       <p className={cn('text')}><span>{detail.description}</span></p>
-      <p className={cn('text')}>Страна производитель: <b>{detail.madeIn?.title}</b></p>
-      <p className={cn('text')}>Категория <b> {detail.category?.title}</b></p>
-      <p className={cn('text')}>Год выпуска <b>{detail.edition}</b></p>
-      <p className={cn('price')}>Цена {detail.price}</p>
-      <button onClick={callbacks.onAdd}>Добавить</button>
+      <p className={cn('text')}>{t('Страна производитель')}: <b>{detail.madeIn?.title}</b></p>
+      <p className={cn('text')}>{t('Категория')}: <b> {detail.category?.title}</b></p>
+      <p className={cn('text')}>{t('Год выпуска')}: <b>{detail.edition}</b></p>
+      <p className={cn('price')}>{t('Цена')} {detail.price}</p>
+      <button onClick={callbacks.onAdd}>{t('Добавить')}</button>
     </div>
   )
 }

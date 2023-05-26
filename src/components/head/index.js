@@ -3,10 +3,10 @@ import PropTypes from "prop-types";
 import './style.css';
 import LangSwitcher from "../lang-switcher";
 
-function Head({title, changeLang}){
+function Head({title, changeLang, lang}){
   return (
     <div className='Head'>
-      <LangSwitcher changeLang={changeLang}/>
+      <LangSwitcher/>
       <h1>{title}</h1>
     </div>
   )
