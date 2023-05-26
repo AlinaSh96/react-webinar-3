@@ -1,4 +1,4 @@
-import { memo, useState } from "react";
+import { memo } from "react";
 import useTranslate from "../../hooks/use-translation";
 import { Link } from 'react-router-dom';
 import PropTypes from "prop-types";

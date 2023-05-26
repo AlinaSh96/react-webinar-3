@@ -2,7 +2,6 @@ import { memo } from "react";
 import PropTypes from "prop-types";
 import { cn as bem } from "@bem-react/classname";
 import { numberFormat, plural } from "../../utils";
-import { Link } from 'react-router-dom';
 import useTranslate from '../../hooks/use-translation';
 import Menu from '../menu'
 import "./style.css";

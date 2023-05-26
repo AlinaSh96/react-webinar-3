@@ -1,4 +1,4 @@
-import { memo, useState } from 'react';
+import { memo } from 'react';
 import './style.css';
 import useTranslate from '../../hooks/use-translation'
 
