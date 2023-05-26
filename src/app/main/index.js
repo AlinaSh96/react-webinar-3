@@ -12,32 +12,39 @@ import useTranslate from '../../hooks/use-translation';
 function Main() {
   const DEFAULT_LIMIT = 10;
   const store = useStore();
-  const [currentPage, setCurrentPage] = useState(1);
+  //const [currentPage, setCurrentPage] = useState(1);
   const { t } = useTranslate();
 
-  useEffect(() => {
-    store.actions.catalog.load(DEFAULT_LIMIT, (currentPage-1) * 10);
-  }, [currentPage]);
+  // useEffect(() => {
+  //   store.actions.catalog.load(DEFAULT_LIMIT, (currentPage-1) * 10);
+  // }, [currentPage]);
 
   const select = useSelector(state => ({
     list: state.catalog.list,
     count: state.catalog.count,
     skip: state.catalog.skip,
+    currentPage: state.catalog.currentPage,
     limit: state.catalog.limit,
     amount: state.basket.amount,
     sum: state.basket.sum,
   }));
+
+  useEffect(() => {
+    store.actions.catalog.load(DEFAULT_LIMIT, (select.currentPage-1) * 10);
+  }, [select.currentPage]);
 
   const callbacks = {
     // Добавление в корзину
     addToBasket: useCallback(_id => store.actions.basket.addToBasket(_id), [store]),
     // Открытие модалки корзины
     openModalBasket: useCallback(() => store.actions.modals.open('basket'), [store]),
+    // Установка текущей страницы
+    setCurrentPage: useCallback((page) => store.actions.catalog.setPage(page), [store]),
   }
 
   const renders = {
-    item: useCallback((item) => {
-      return <Item item={item} onAdd={callbacks.addToBasket}/>
+    item: useCallback((item, routePath) => {
+      return <Item item={item} onAdd={callbacks.addToBasket} routePath={routePath}/>
     }, [callbacks.addToBasket]),
   };
 
@@ -47,7 +54,7 @@ function Main() {
       <BasketTool onOpen={callbacks.openModalBasket} amount={select.amount}
                   sum={select.sum}/>
       <List list={select.list} renderItem={renders.item}/>
-      <Pagination  currentPage={currentPage} onPageChange={page => setCurrentPage(page)} count={select.count} skip={select.skip} limit={select.limit}/>
+      <Pagination  currentPage={select.currentPage} onPageChange={callbacks.setCurrentPage} count={select.count} skip={select.skip} limit={select.limit}/>
     </PageLayout>
 
   );

@@ -7,7 +7,7 @@ import './style.css';
 function DetailCard({detail, onAdd}){
   const { t } = useTranslate();
   const cn = bem('DetailCard');
-
+  
   const callbacks = {
     onAdd: (e) => onAdd(detail._id)
   }

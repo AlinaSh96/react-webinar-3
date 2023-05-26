@@ -4,7 +4,14 @@ import { cn as bem } from "@bem-react/classname";
 import { numberFormat, plural } from "../../utils";
 import { Link } from 'react-router-dom';
 import useTranslate from '../../hooks/use-translation';
+import Menu from '../menu'
 import "./style.css";
+
+
+const links = [{
+  to: '/',
+  title: 'Главная'
+}]
 
 function BasketTool({ sum, amount, onOpen }) {
   const cn = bem("BasketTool");
@@ -12,9 +19,7 @@ function BasketTool({ sum, amount, onOpen }) {
   return (
     <div className={cn()}>
       <div>
-      <Link to={'/'} className={cn('main')}>
-         {t('Главная')}
-      </Link>
+      <Menu links={links}/>
       </div>
       <div>
         <span className={cn("label")}>{t('В корзине')}</span>

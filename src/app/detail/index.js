@@ -1,12 +1,10 @@
 import {memo, useCallback, useEffect} from 'react';
-import PropTypes from "prop-types";
 import { useParams } from 'react-router-dom';
 import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
 import BasketTool from "../../components/basket-tool";
 import useStore from "../../store/use-store";
 import useSelector from "../../store/use-selector";
-import './style.css';
 import DetailCard from '../../components/detail-card';
 
 function Detail(){
@@ -15,7 +13,7 @@ function Detail(){
 
   useEffect(() => {
     store.actions.detail.loadById(id);
-  }, []);
+  }, [id]);
 
   const select = useSelector(state => ({
     detail: state.detail.detail,

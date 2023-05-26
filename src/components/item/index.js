@@ -14,10 +14,12 @@ function Item(props){
     onAdd: (e) => props.onAdd(props.item._id)
   }
 
+  const path = props.routePath;
+
   return (
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
-      <Link to={'detail/' + props.item._id} className={cn('title')}>
+      <Link to={path + props.item._id} className={cn('title')}>
         {props.item.title}
       </Link>
       <div className={cn('actions')}>
@@ -34,6 +36,7 @@ Item.propTypes = {
     title: PropTypes.string,
     price: PropTypes.number
   }).isRequired,
+  routePath: PropTypes.string,
   onAdd: PropTypes.func,
 };
 

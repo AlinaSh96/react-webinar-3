@@ -16,10 +16,12 @@ function ItemBasket(props) {
     onRemove: (e) => props.onRemove(props.item._id)
   };
 
+  const path = props.routePath;
+
   return (
     <div className={cn()}>
       {/*<div className={cn('code')}>{props.item._id}</div>*/}
-      <Link to={'detail/' + props.item._id} className={cn('title')} onClick={props.onClose}>
+      <Link to={path + props.item._id} className={cn('title')} onClick={props.onClose}>
       {props.item.title}
       </Link>
       <div className={cn('right')}>
@@ -38,6 +40,7 @@ ItemBasket.propTypes = {
     price: PropTypes.number,
     amount: PropTypes.number
   }).isRequired,
+  routePath: PropTypes.string,
   onRemove: propTypes.func,
   onClose: propTypes.func,
 }
