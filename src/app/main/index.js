@@ -8,7 +8,12 @@ import Head from "../../components/head";
 import CatalogFilter from "../../containers/catalog-filter";
 import CatalogList from "../../containers/catalog-list";
 import LocaleSelect from "../../containers/locale-select";
-import AuthorizationTool from '../../components/authorization-tool';
+import AuthMenu from '../../containers/auth-menu';
+
+const authRoute = {
+  login: '/login',
+  profile: '/profile'
+}
 
 function Main() {
 
@@ -19,12 +24,11 @@ function Main() {
     store.actions.catalog.getCategory();
   }, [], true);
 
-
   const {t} = useTranslate();
 
   return (
     <PageLayout>
-      <AuthorizationTool/>
+      <AuthMenu route={authRoute}/>
       <Head title={t('title')}>
         <LocaleSelect/>
       </Head>

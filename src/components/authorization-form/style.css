@@ -8,3 +8,8 @@
     width: 20%;
     padding-bottom: 23px;
 }
+.AuthorizationForm-error{
+    color: #FF0000;
+    margin: 0;
+    margin-bottom: 23px;
+}
