@@ -1,13 +1,19 @@
-import { useMemo } from 'react';
+import { memo } from 'react';
 import { Navigate, useLocation } from 'react-router-dom';
-import useStore from "../../hooks/use-store";
-import useSelector from "../../hooks/use-selector";
+import PropTypes from "prop-types";
 
-export function RequireAuth({ auth,  children}) {
+function RequireAuth({ auth,  children}) {
     const location = useLocation(); 
     if (!auth ) {
         return <Navigate to='/' state={{ from: location }} replace/>;
     }
-
     return children;
 }
+
+RequireAuth.propTypes = {
+    auth: PropTypes.bool,
+    children: PropTypes.element,
+  };
+
+
+export default memo(RequireAuth);

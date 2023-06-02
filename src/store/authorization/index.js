@@ -30,7 +30,12 @@ class AuthState extends StoreModule {
   }
 
   async logOut() {
-   // const token = localStorage.getItem('token')
+    const token = localStorage.getItem("token");
+    await fetch("/api/v1/users/sign", {
+      method: "DELETE",
+      headers: { "X-Token": token },
+    });
+
     window.localStorage.removeItem("token");
     this.setState(
       {
@@ -42,7 +47,7 @@ class AuthState extends StoreModule {
       "Пользователь вышел из системы"
     );
   }
-  
+
   async loginByToken() {
     const token = window.localStorage.getItem("token");
     this.setState(
@@ -59,7 +64,7 @@ class AuthState extends StoreModule {
         headers: { "X-Token": token, "content-type": "application/json" },
       });
       const json = await response.json();
-      this.setUser(json.result.profile);
+      this.setUser(json.result);
       return;
     }
     this.setState(
@@ -87,7 +92,8 @@ class AuthState extends StoreModule {
     });
     const json = await response.json();
     if (response.ok) {
-      this.setUser(json.result.user.profile);
+      this.setUser(json.result.user);
+      console.log(json.result.user)
       localStorage.setItem("token", json.result.token);
     } else {
       if (json?.error?.message) {

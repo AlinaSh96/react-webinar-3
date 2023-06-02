@@ -13,16 +13,16 @@ function ProfileCard() {
 
   const { t } = useTranslate();
 
- console.log(select.profile)
+ console.log(select.authorization)
   return (
     <Flex direction="column" gap={8}>
       <>
         <h2>Профиль</h2>
         <span>
-          Имя: <b>{select.profile?.name}</b>
+          Имя: <b>{select.profile?.profile?.name}</b>
         </span>
         <span>
-          Телефон: <b>{select.profile?.name}</b>
+          Телефон: <b>{select.profile?.profile?.phone}</b>
         </span>
         <span>
           email: <b>{select.profile?.email}</b>

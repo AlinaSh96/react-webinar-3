@@ -8,7 +8,7 @@ import Authorization from './authorization';
 import Profile from './profile';
 import useStore from "../hooks/use-store";
 import useInit from "../hooks/use-init";
-import { RequireAuth } from '../components/require-auth';
+import RequireAuth from '../components/require-auth';
 /**
  * Приложение
  * @returns {React.ReactElement}
@@ -27,7 +27,6 @@ function App() {
     isLoading: state.authorization.waiting,
   }));
 
-
   const activeModal = useSelector(state => state.modals.name);
 
   return (
@@ -40,6 +39,7 @@ function App() {
       </Routes>
 
       {activeModal === 'basket' && <Basket/>}
+
     </>
   );
 }

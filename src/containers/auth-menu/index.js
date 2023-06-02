@@ -10,7 +10,7 @@ const store = useStore();
 
   const select = useSelector((state) => ({
     isAuth: state.authorization.isAuth,
-    login: state.authorization.profile?.name,
+    login: state.authorization.profile?.profile?.name,
   }));
 
   const onLogout = () => {
@@ -19,7 +19,7 @@ const store = useStore();
 
 
   return (
-    <Flex justify="end">
+    <Flex justify="end" gap={4}>
       {select.isAuth ? (
         <>
         <Link to='/profile'>{select.login}</Link>
