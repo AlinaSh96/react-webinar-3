@@ -15,6 +15,8 @@ import { RequireAuth } from '../components/require-auth';
  */
 function App() {
   const store = useStore();
+  const token = localStorage.getItem('token');
+
 
   useInit(() => {
     store.actions.authorization.loginByToken()
@@ -25,16 +27,16 @@ function App() {
     isLoading: state.authorization.waiting,
   }));
 
-  console.log(select.isLoading)
+
   const activeModal = useSelector(state => state.modals.name);
-  if (select.isLoading) return ''
+
   return (
     <>
       <Routes>
         <Route path={''} element={<Main/>}/>
         <Route path={'/articles/:id'} element={<Article/>}/>
         <Route path={'/login'} element={<Authorization/>}/>
-        <Route path={'/profile'} element={<RequireAuth auth={select.isAuth}>{<Profile/>}</RequireAuth>}/>
+        <Route path={'/profile'} element={<RequireAuth auth={select.isAuth || token}>{<Profile/>}</RequireAuth>}/>
       </Routes>
 
       {activeModal === 'basket' && <Basket/>}

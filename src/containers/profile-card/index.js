@@ -19,13 +19,13 @@ function ProfileCard() {
       <>
         <h2>Профиль</h2>
         <span>
-          Имя: <b>{select.profile.name}</b>
+          Имя: <b>{select.profile?.name}</b>
         </span>
         <span>
-          Телефон: <b>{select.profile.name}</b>
+          Телефон: <b>{select.profile?.name}</b>
         </span>
         <span>
-          email: <b>{select.profile.email}</b>
+          email: <b>{select.profile?.email}</b>
         </span>
       </>
     </Flex>

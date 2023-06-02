@@ -5,7 +5,6 @@ import useSelector from "../../hooks/use-selector";
 
 export function RequireAuth({ auth,  children}) {
     const location = useLocation(); 
-
     if (!auth ) {
         return <Navigate to='/' state={{ from: location }} replace/>;
     }
