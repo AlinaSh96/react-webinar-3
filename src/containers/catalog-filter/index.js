@@ -5,15 +5,15 @@ import useSelector from "../../hooks/use-selector";
 import Select from "../../components/select";
 import Input from "../../components/input";
 import SideLayout from "../../components/side-layout";
-import { getTreeStructure, generate } from "../../utils"
 
 function CatalogFilter() {
   const store = useStore();
-
+  const { t } = useTranslate();
+  
   const select = useSelector((state) => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
-    categoryList: state.catalog.category,
+    categoryList: state.catalog.categories,
     category: state.catalog.params.category,
   }));
 
@@ -45,22 +45,14 @@ function CatalogFilter() {
         { value: "-price", title: "Сначала дорогие" },
         { value: "edition", title: "Древние" },
       ],
-      []
+      [select.categoryList]
     ),
-
-    category: useMemo(() => {
-      const treeStructure = getTreeStructure(select.categoryList);
-      const categoryOptions = generate(treeStructure);
-      return categoryOptions;
-    }, [select.categoryList]),
   };
   
-  const { t } = useTranslate();
-
   return (
     <SideLayout padding="medium">
       <Select
-        options={options.category}
+        options={select.categoryList}
         value={select.category}
         onChange={callbacks.onSearchByCategory}
       />
@@ -72,7 +64,7 @@ function CatalogFilter() {
       <Input
         value={select.query}
         onChange={callbacks.onSearch}
-        placeholder={"Поиск"}
+        placeholder={t("search")}
         delay={1000}
       />
       <button onClick={callbacks.onReset}>{t("filter.reset")}</button>

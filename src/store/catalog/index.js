@@ -1,5 +1,5 @@
 import StoreModule from "../module";
-
+import { generate } from "../../utils";
 /**
  * Состояние каталога - параметры фильтра исписок товара
  */
@@ -19,7 +19,7 @@ class CatalogState extends StoreModule {
         query: '',
         category: '',
       },
-      category: [],
+      categories: [],
       count: 0,
       waiting: false,
 
@@ -111,9 +111,11 @@ class CatalogState extends StoreModule {
   async getCategory() {
     const response = await fetch('/api/v1/categories?fields=_id,title,name,parent(_id)&limit=');
     const json = await response.json();
+    const categoryOptions = generate(json.result.items);
+    console.log(categoryOptions)
     this.setState({
       ...this.getState(),
-      category: json.result.items,
+      categories: categoryOptions,
     }, 'Загружен списокок категорий');
   }
 

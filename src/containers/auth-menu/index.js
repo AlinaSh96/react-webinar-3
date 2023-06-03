@@ -1,11 +1,13 @@
 import { memo } from "react";
 import { Link } from "react-router-dom";
+import useTranslate from "../../hooks/use-translate";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import Flex from "../../components/flex";
 
 function AuthMenu() {
 const store = useStore();
+const { t } = useTranslate();
 
   const select = useSelector((state) => ({
     isAuth: state.authorization.isAuth,
@@ -22,11 +24,11 @@ const store = useStore();
       {select.isAuth ? (
         <>
         <Link to='/profile'>{select.login}</Link>
-        <button onClick={onLogout}>Выход</button>
+        <button onClick={onLogout}>{t('logout')}</button>
         </>
       ) : (
         <Link to='/login'>
-          <button>Вход</button>
+          <button>{t('login')}</button>
         </Link>
       )}
     </Flex>

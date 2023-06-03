@@ -52,31 +52,27 @@ export function getTreeStructure(categoryList) {
   return root;
 }
 
-export function generate(tree) {
+export function generate(categoryList) {
+  const tree = getTreeStructure(categoryList);
   const optionsList = [
     {
-      value: "",
-      title: "Все",
+      value: '',
+      title: 'Все',
     },
   ];
   let level = 1;
 
-  treeForeach(tree, func, level);
-
-  function treeForeach(tree, func, level) {
-    tree.forEach((data) => {
-      func(data, level);
-      data.children && treeForeach(data.children, func, level + 1);
-    });
-  }
-
-  function func(data, level) {
-    const strGenerate =
-      level === 1 ? data.title : `${" - ".repeat(level)}${data.title}`;
-    optionsList.push({
-      value: data._id,
-      title: strGenerate,
-    });
-  }
+  treeForeach(tree, level, optionsList);
   return optionsList;
+}
+
+function treeForeach(tree, level, optionsList) {
+  tree.forEach((data) => {
+    const strGenerate = level === 1 ? data.title : `${" - ".repeat(level)}${data.title}`;
+    optionsList.push({
+    value: data._id,
+    title: strGenerate,
+  });
+    data.children && treeForeach(data.children, level + 1, optionsList);
+  });
 }
