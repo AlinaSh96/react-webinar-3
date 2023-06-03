@@ -1,11 +1,10 @@
-import { memo, useCallback } from "react";
-import PropTypes from "prop-types";
+import { memo } from "react";
 import { Link } from "react-router-dom";
 import useStore from "../../hooks/use-store";
 import useSelector from "../../hooks/use-selector";
 import Flex from "../../components/flex";
 
-function AuthMenu(props) {
+function AuthMenu() {
 const store = useStore();
 
   const select = useSelector((state) => ({
@@ -33,10 +32,5 @@ const store = useStore();
     </Flex>
   );
 }
-
-// Authorization.propTypes = {
-//   title: PropTypes.node,
-//   children: PropTypes.node,
-// };
 
 export default memo(AuthMenu);

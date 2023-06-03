@@ -93,7 +93,6 @@ class AuthState extends StoreModule {
     const json = await response.json();
     if (response.ok) {
       this.setUser(json.result.user);
-      console.log(json.result.user)
       localStorage.setItem("token", json.result.token);
     } else {
       if (json?.error?.message) {

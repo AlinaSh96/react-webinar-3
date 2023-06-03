@@ -1,5 +1,8 @@
 {
   "title": "Магазин",
+  "profile": "Профиль",
+  "name": "имя",
+  "phone": "телефон",
   "menu.main": "Главная",
   "basket.title": "Корзина",
   "basket.open": "Перейти",

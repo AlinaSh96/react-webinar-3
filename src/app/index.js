@@ -35,7 +35,7 @@ function App() {
         <Route path={''} element={<Main/>}/>
         <Route path={'/articles/:id'} element={<Article/>}/>
         <Route path={'/login'} element={<Authorization/>}/>
-        <Route path={'/profile'} element={<RequireAuth auth={select.isAuth || token}>{<Profile/>}</RequireAuth>}/>
+        <Route path={'/profile'} element={<RequireAuth auth={!!(select.isAuth || token)}>{<Profile/>}</RequireAuth>}/>
       </Routes>
 
       {activeModal === 'basket' && <Basket/>}
