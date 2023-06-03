@@ -9,7 +9,7 @@ import SideLayout from "../../components/side-layout";
 function CatalogFilter() {
   const store = useStore();
   const { t } = useTranslate();
-  
+
   const select = useSelector((state) => ({
     sort: state.catalog.params.sort,
     query: state.catalog.params.query,
@@ -66,6 +66,7 @@ function CatalogFilter() {
         onChange={callbacks.onSearch}
         placeholder={t("search")}
         delay={1000}
+        theme={'big'}
       />
       <button onClick={callbacks.onReset}>{t("filter.reset")}</button>
     </SideLayout>
