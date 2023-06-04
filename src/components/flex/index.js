@@ -24,6 +24,7 @@ const gapClasses = {
     4: 'gap4',
     8: 'gap8',
     16: 'gap16',
+    20: 'gap20',
 };
 
 

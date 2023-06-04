@@ -5,7 +5,7 @@ import './style.css';
 
 function ProfileCard(props) {
   return (
-    <Flex direction="column" gap={16}>
+    <Flex direction="column" gap={20}>
       <>
         <h2>{props.t("profile")}</h2>
         <span>
