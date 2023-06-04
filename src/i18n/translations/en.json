@@ -1,8 +1,8 @@
 {
   "title": "Shop",
   "profile": "Profile",
-  "name": "name",
-  "phone": "phone",
+  "name": "Name",
+  "phone": "Phone",
   "search": "Search",
   "login": "Login",
   "logout": "Logout",

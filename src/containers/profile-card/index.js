@@ -11,7 +11,7 @@ function ProfileCard() {
   const { t } = useTranslate();
 
   return (
-    <Flex direction="column" gap={8}>
+    <Flex direction="column" gap={16}>
       <>
         <h2>{t("profile")}</h2>
         <span>

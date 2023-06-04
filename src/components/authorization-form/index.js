@@ -15,13 +15,13 @@ function AuthorizationForm(props) {
       </div>
       <div className={cn('field')}>
         <label htmlFor="password">{props.t('password')}</label>
-        <input id="password" type="text" name="password"/>
+        <input id="password" type="password" name="password"/>
       </div>
       </div>
       <p className={cn('error')}>
         {!!props.error && props.error}
       </p>
-      <button>{props.t('signIn')}</button>
+      <button className={cn('btn')}>{props.t('signIn')}</button>
     </form>
   );
 }

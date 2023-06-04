@@ -14,15 +14,16 @@ class AuthState extends StoreModule {
       error: "",
     };
   }
-
-  // setUser(data) {
-  //   this.store.actions.profile.setState({ ...this.getState(), 
-  //     profile: data,
-  //     waiting: false,
-  //   },
-  //   "Загружен профиль"
-  //   );
-  // }
+  
+  clear(){
+    this.setState(
+      {
+        ...this.getState(),
+        error: '',
+      },
+      "Очищаем стейт"
+    );
+  }
 
   async loginByUsername(data) {
     const authData = {
