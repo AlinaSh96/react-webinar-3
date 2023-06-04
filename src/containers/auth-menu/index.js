@@ -20,7 +20,7 @@ const { t } = useTranslate();
 
 
   return (
-    <Flex justify="end" gap={4}>
+    <Flex justify="end" gap={8}>
       {select.isAuth ? (
         <>
         <Link to='/profile'>{select.login}</Link>

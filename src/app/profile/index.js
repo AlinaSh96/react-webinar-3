@@ -4,8 +4,9 @@ import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
 import Navigation from "../../containers/navigation";
 import LocaleSelect from "../../containers/locale-select";
-import ProfileCard from '../../containers/profile-card';
+import ProfileCard from '../../components/profile-card';
 import AuthMenu from '../../containers/auth-menu';
+import useSelector from "../../hooks/use-selector";
 
 const authRoute = {
   login: '/login',
@@ -15,6 +16,10 @@ const authRoute = {
 function Profile() {
   const {t} = useTranslate();
 
+  const select = useSelector((state) => ({
+    profile: state.profile.profile,
+  }));
+
   return (
     <PageLayout>
       <AuthMenu route={authRoute}/>
@@ -22,7 +27,7 @@ function Profile() {
         <LocaleSelect/>
       </Head>
       <Navigation />
-      <ProfileCard/>
+      <ProfileCard  t={t} profile={select.profile}/>
     </PageLayout>
   );
 }
