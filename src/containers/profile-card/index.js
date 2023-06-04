@@ -6,7 +6,7 @@ import Flex from "../../components/flex";
 
 function ProfileCard() {
   const select = useSelector((state) => ({
-    profile: state.authorization.profile,
+    profile: state.profile.profile,
   }));
 
   const { t } = useTranslate();

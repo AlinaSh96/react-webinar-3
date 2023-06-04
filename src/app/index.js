@@ -1,4 +1,3 @@
-import {useCallback, useContext, useEffect, useState} from 'react';
 import {Routes, Route} from 'react-router-dom';
 import useSelector from "../hooks/use-selector";
 import Main from "./main";
@@ -15,27 +14,25 @@ import RequireAuth from '../components/require-auth';
  */
 function App() {
   const store = useStore();
-  const token = localStorage.getItem('token');
+  const activeModal = useSelector(state => state.modals.name);
+  const select = useSelector((state) => ({
+    isAuth: state.profile.isAuth,
+    isLoading: state.authorization.waiting,
+  }));
 
 
   useInit(() => {
     store.actions.profile.loginByToken()
   }, [], true);
 
-  const select = useSelector((state) => ({
-    isAuth: state.authorization.isAuth,
-    isLoading: state.authorization.waiting,
-  }));
-
-  const activeModal = useSelector(state => state.modals.name);
 
   return (
     <>
       <Routes>
         <Route path={''} element={<Main/>}/>
         <Route path={'/articles/:id'} element={<Article/>}/>
-        <Route path={'/login'} element={<Authorization/>}/>
-        <Route path={'/profile'} element={<RequireAuth auth={!!(select.isAuth || token)}>{<Profile/>}</RequireAuth>}/>
+        <Route path={'/login'} element={<RequireAuth to='/profile' auth={!(select.isAuth)}>{<Authorization/>}</RequireAuth>}/>
+        <Route path={'/profile'} element={<RequireAuth to='/login' auth={(select.isAuth)}>{<Profile/>}</RequireAuth>}/>
       </Routes>
 
       {activeModal === 'basket' && <Basket/>}

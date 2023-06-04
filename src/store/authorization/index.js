@@ -11,41 +11,18 @@ class AuthState extends StoreModule {
   initState() {
     return {
       waiting: false,
-      isAuth: false,
       error: "",
     };
   }
 
-  setUser(data) {
-    this.setState(
-      {
-        ...this.getState(),
-        isAuth: true,
-        profile: data,
-        waiting: false,
-      },
-      "Загружен профиль"
-    );
-  }
-
-  async logOut() {
-    const token = localStorage.getItem("token");
-    await fetch("/api/v1/users/sign", {
-      method: "DELETE",
-      headers: { "X-Token": token },
-    });
-
-    window.localStorage.removeItem("token");
-    this.setState(
-      {
-        ...this.getState(),
-        isAuth: false,
-        profile: null,
-        waiting: false,
-      },
-      "Пользователь вышел из системы"
-    );
-  }
+  // setUser(data) {
+  //   this.store.actions.profile.setState({ ...this.getState(), 
+  //     profile: data,
+  //     waiting: false,
+  //   },
+  //   "Загружен профиль"
+  //   );
+  // }
 
   async loginByUsername(data) {
     const authData = {
@@ -63,7 +40,7 @@ class AuthState extends StoreModule {
     });
     const json = await response.json();
     if (response.ok) {
-      this.setUser(json.result.user);
+      this.store.actions.profile.setUser(json.result.user)
       localStorage.setItem("token", json.result.token);
     } else {
       if (json?.error?.message) {
