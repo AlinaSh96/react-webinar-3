@@ -68,7 +68,7 @@ export function generate(categoryList) {
 
 function treeForeach(tree, level, optionsList) {
   tree.forEach((data) => {
-    const strGenerate = level === 1 ? data.title : `${" - ".repeat(level)}${data.title}`;
+    const strGenerate = level === 1 ? data.title : `${" - ".repeat(level-1)}${data.title}`;
     optionsList.push({
     value: data._id,
     title: strGenerate,

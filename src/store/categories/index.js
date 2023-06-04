@@ -27,6 +27,7 @@ class CategoriesState extends StoreModule {
       }, 'Грузится список категорий');
     const response = await fetch('/api/v1/categories?fields=_id,title,name,parent(_id)&limit=');
     const json = await response.json();
+    console.log(json.result.items)
     const categoryOptions = generate(json.result.items);
     this.setState({
       ...this.getState(),
