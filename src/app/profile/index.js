@@ -24,10 +24,10 @@ function Profile() {
     <PageLayout>
       <AuthMenu route={authRoute}/>
       <Head title={t('title')}>
-        <LocaleSelect t={t} profile={select.profile}/>
+        <LocaleSelect />
       </Head>
       <Navigation />
-      <ProfileCard/>
+      <ProfileCard t={t} profile={select.profile}/>
     </PageLayout>
   );
 }
