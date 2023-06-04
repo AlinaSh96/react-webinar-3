@@ -1,5 +1,4 @@
-import { memo, useMemo } from "react";
-import useStore from "../../hooks/use-store";
+import { memo } from "react";
 import useSelector from "../../hooks/use-selector";
 import useTranslate from "../../hooks/use-translate";
 import Flex from "../../components/flex";
