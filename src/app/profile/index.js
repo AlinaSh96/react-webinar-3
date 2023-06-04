@@ -4,9 +4,8 @@ import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
 import Navigation from "../../containers/navigation";
 import LocaleSelect from "../../containers/locale-select";
-import ProfileCard from '../../components/profile-card';
+import ProfileCard from '../../components/page-layout';
 import AuthMenu from '../../containers/auth-menu';
-import useSelector from "../../hooks/use-selector";
 
 const authRoute = {
   login: '/login',
@@ -24,10 +23,10 @@ function Profile() {
     <PageLayout>
       <AuthMenu route={authRoute}/>
       <Head title={t('title')}>
-        <LocaleSelect/>
+        <LocaleSelect t={t} profile={select.profile}/>
       </Head>
       <Navigation />
-      <ProfileCard  t={t} profile={select.profile}/>
+      <ProfileCard/>
     </PageLayout>
   );
 }
