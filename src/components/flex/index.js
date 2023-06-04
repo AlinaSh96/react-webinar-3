@@ -27,6 +27,10 @@ const gapClasses = {
     20: 'gap20',
 };
 
+const borderClasses = {
+    bottom: 'bottom',
+    all: 'all',
+};
 
 export const Flex = (props) => {
     const {
@@ -34,6 +38,7 @@ export const Flex = (props) => {
         justify = 'start',
         align = 'center',
         direction = 'row',
+        border,
         gap,
     } = props;
 
@@ -42,6 +47,7 @@ export const Flex = (props) => {
         justifyClasses[justify],
         alignClasses[align],
         directionClasses[direction],
+        borderClasses[border],
         gap && gapClasses[gap],
 ].filter( _ => _).join(' ');
 
@@ -56,6 +62,7 @@ Flex.propTypes = {
     className: PropTypes.string,
     children: PropTypes.element,
     justify: PropTypes.string,
+    bottom: PropTypes.string,
     align: PropTypes.string,
     direction: PropTypes.string,
     gap: PropTypes.number,

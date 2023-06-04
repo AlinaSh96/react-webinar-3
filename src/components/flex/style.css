@@ -54,3 +54,7 @@
 .gap20 {
     gap: 20px;
 }
+
+.bottom {
+    border-bottom: 1px solid #DCDCDC;
+}
