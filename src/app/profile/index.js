@@ -4,8 +4,9 @@ import PageLayout from "../../components/page-layout";
 import Head from "../../components/head";
 import Navigation from "../../containers/navigation";
 import LocaleSelect from "../../containers/locale-select";
-import ProfileCard from '../../components/page-layout';
+import ProfileCard from '../../components/profile-card';
 import AuthMenu from '../../containers/auth-menu';
+import useSelector from "../../hooks/use-selector";
 
 const authRoute = {
   login: '/login',
