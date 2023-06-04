@@ -34,7 +34,8 @@ AuthorizationForm.propTypes = {
 
 AuthorizationForm.defaultProps = {
   error: null,
-  onAuth: () => { },
+  onAuth: () => {},
+  t: () => {},
 }
 
 export default memo(AuthorizationForm);

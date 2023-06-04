@@ -1,4 +1,5 @@
 import { memo } from "react";
+import PropTypes from 'prop-types';
 import Flex from "../flex";
 import './style.css';
 
@@ -20,5 +21,15 @@ function ProfileCard(props) {
     </Flex>
   );
 }
+
+ProfileCard.propTypes = {
+  profile: PropTypes.object,
+  t: PropTypes.func
+}
+
+ProfileCard.defaultProps = {
+  t: () => {},
+}
+
 
 export default memo(ProfileCard);
