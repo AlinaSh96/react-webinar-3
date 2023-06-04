@@ -13,7 +13,6 @@ class AuthState extends StoreModule {
       waiting: false,
       isAuth: false,
       error: "",
-      profile: null,
     };
   }
 
@@ -45,34 +44,6 @@ class AuthState extends StoreModule {
         waiting: false,
       },
       "Пользователь вышел из системы"
-    );
-  }
-
-  async loginByToken() {
-    const token = window.localStorage.getItem("token");
-    this.setState(
-      {
-        ...this.getState(),
-        isAuth: false,
-        profile: null,
-        waiting: true,
-      },
-      "Грузим данные"
-    );
-    if (token) {
-      const response = await fetch("/api/v1/users/self", {
-        headers: { "X-Token": token, "content-type": "application/json" },
-      });
-      const json = await response.json();
-      this.setUser(json.result);
-      return;
-    }
-    this.setState(
-      {
-        ...this.getState(),
-        waiting: false,
-      },
-      "Загрузили данные"
     );
   }
 

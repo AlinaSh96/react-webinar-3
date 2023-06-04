@@ -19,7 +19,7 @@ function App() {
 
 
   useInit(() => {
-    store.actions.authorization.loginByToken()
+    store.actions.profile.loginByToken()
   }, [], true);
 
   const select = useSelector((state) => ({
