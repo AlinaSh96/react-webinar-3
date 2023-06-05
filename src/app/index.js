@@ -20,16 +20,16 @@ function App() {
   const {t} = useTranslate();
 
   useInit(() => {
-    store.actions.profile.loginByToken()
+    store.actions.authorization.loginByToken()
   }, [], true);
 
   const activeModal = useSelector(state => state.modals.name);
   const select = useSelector((state) => ({
-    isAuth: state.profile.isAuth,
-    isLoading: state.profile.waiting,
+    isAuth: state.authorization.isAuth,
+    isLoading: state.authorization.waiting,
   }));
 
- if (select.isLoading) return <Spinner active={true}>{t('loading')}...</Spinner>
+  if (select.isLoading) return <Spinner active={true}>{t('loading')}...</Spinner>
   return (
     <>
       <Routes>

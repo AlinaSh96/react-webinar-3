@@ -12,6 +12,8 @@ class AuthState extends StoreModule {
     return {
       waiting: false,
       error: "",
+      userName: "",
+      isAuth: false,
     };
   }
   
@@ -41,8 +43,16 @@ class AuthState extends StoreModule {
     });
     const json = await response.json();
     if (response.ok) {
-      this.store.actions.profile.setUser(json.result.user)
+      // this.store.actions.profile.setUser(json.result.user)
       localStorage.setItem("token", json.result.token);
+      this.setState(
+        {
+          ...this.getState(),
+          userName: json.result.user.username,
+          isAuth: true,
+        },
+        "Загружены данные сессии"
+      );
     } else {
       if (json?.error?.message) {
         this.setState(
@@ -50,12 +60,79 @@ class AuthState extends StoreModule {
             ...this.getState(),
             error:
               json.error.message + ": " + json.error?.data?.issues[0]?.message,
+              isAuth: true,
           },
           "Загружена ошибка"
         );
       }
     }
   }
+
+  async loginByToken() {
+    const token = window.localStorage.getItem("token");
+    this.setState(
+      {
+        ...this.getState(),
+        waiting: true,
+      },
+      "Грузим данные"
+    );
+    if (token) {
+      const response = await fetch("/api/v1/users/self", {
+        headers: { "X-Token": token, "content-type": "application/json" },
+      });
+      if (response.ok) {
+        const json = await response.json();
+        this.setState(
+          {
+            ...this.getState(),
+            waiting: false,
+            userName: json.result.username,
+            isAuth: true,
+          },
+          "Загрузили данные"
+        );
+        return;
+      } else {
+        this.setState(
+          {
+            ...this.getState(),
+            waiting: false,
+            isAuth: false,
+          },
+          "Загрузили данные"
+        );
+      }
+    }
+    this.setState(
+      {
+        ...this.getState(),
+        waiting: false,
+        isAuth: false,
+      },
+      "Загрузили данные"
+    );
+  }
+
+  async logOut() {
+    const token = localStorage.getItem("token");
+    await fetch("/api/v1/users/sign", {
+      method: "DELETE",
+      headers: { "X-Token": token },
+    });
+
+    window.localStorage.removeItem("token");
+    this.setState(
+      {
+        ...this.getState(),
+        isAuth: false,
+        username: null,
+        waiting: false,
+      },
+      "Пользователь вышел из системы"
+    );
+  }
+
 }
 
 export default AuthState;

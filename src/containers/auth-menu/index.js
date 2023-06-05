@@ -10,12 +10,12 @@ const store = useStore();
 const { t } = useTranslate();
 
   const select = useSelector((state) => ({
-    isAuth: state.profile.isAuth,
-    login: state.profile.profile?.profile?.name,
+    isAuth: state.authorization.isAuth,
+    login: state.authorization.userName,
   }));
 
   const onLogout = () => {
-    store.actions.profile.logOut();
+    store.actions.authorization.logOut();
   };
 
 

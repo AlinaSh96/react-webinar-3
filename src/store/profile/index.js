@@ -12,7 +12,6 @@ class ProfileState extends StoreModule {
     return {
       waiting: false,
       profile: null,
-      isAuth: false,
     };
   }
 
@@ -22,18 +21,16 @@ class ProfileState extends StoreModule {
         ...this.getState(),
         profile: data,
         waiting: false,
-        isAuth: true,
       },
       "Загружен профиль"
     );
   }
 
-  async loginByToken() {
+  async getUserProfile() {
     const token = window.localStorage.getItem("token");
     this.setState(
       {
         ...this.getState(),
-        profile: null,
         waiting: true,
       },
       "Грузим данные"
@@ -51,7 +48,6 @@ class ProfileState extends StoreModule {
           {
             ...this.getState(),
             waiting: false,
-            isAuth: false,
           },
           "Загрузили данные"
         );
@@ -61,28 +57,8 @@ class ProfileState extends StoreModule {
       {
         ...this.getState(),
         waiting: false,
-        isAuth: false,
       },
       "Загрузили данные"
-    );
-  }
-
-  async logOut() {
-    const token = localStorage.getItem("token");
-    await fetch("/api/v1/users/sign", {
-      method: "DELETE",
-      headers: { "X-Token": token },
-    });
-
-    window.localStorage.removeItem("token");
-    this.setState(
-      {
-        ...this.getState(),
-        isAuth: false,
-        profile: null,
-        waiting: false,
-      },
-      "Пользователь вышел из системы"
     );
   }
 }
