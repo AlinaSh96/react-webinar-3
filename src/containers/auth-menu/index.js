@@ -16,6 +16,7 @@ const { t } = useTranslate();
 
   const onLogout = () => {
     store.actions.authorization.logOut();
+    store.actions.authorization.clear();
   };
 
 

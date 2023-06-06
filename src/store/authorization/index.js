@@ -59,7 +59,7 @@ class AuthState extends StoreModule {
             ...this.getState(),
             error:
               json.error.message + ": " + json.error?.data?.issues[0]?.message,
-              isAuth: true,
+              isAuth: false,
           },
           "Загружена ошибка"
         );
