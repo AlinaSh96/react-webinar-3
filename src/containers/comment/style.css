@@ -1,0 +1,34 @@
+.Comment {
+    margin-bottom: 20px;
+}
+.comment__info {
+    display: flex;
+    font-size: 12px;
+    line-height: 14px;
+    gap: 12px;
+}
+
+.comment__authorName {
+    font-weight: 700;
+}
+
+.comment__createdAt {
+    font-weight: 400;
+    color: #666666;
+}
+
+.comment__text {
+    font-weight: 400;
+    font-size: 14px;
+    line-height: 16px;
+    margin: 0;
+}
+
+.comment__reply{
+    margin-top: 10px;
+    color: #0087E9;
+    background: transparent;
+    border: none;
+    padding: 0;
+    cursor: pointer;
+}
