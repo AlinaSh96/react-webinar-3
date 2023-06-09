@@ -1,33 +1,19 @@
 import { memo } from "react";
-import Comment from "../../containers/comment";
 import PropTypes from "prop-types";
 import "./style.css";
 
 function CommentsLayout({
-  count,
-  commentsList,
-  isAuth
+  children
 }) {
   return (
     <div className="Comments">
-      <h2>Комментарии ({commentsList?.length})</h2>
-      {count &&
-        commentsList.map((comment) => (
-          <Comment
-            comment={comment}
-            key={comment._id}
-            isAuth={isAuth}
-          />
-        ))}
+      {children}
     </div>
   );
 }
 
 CommentsLayout.propTypes = {
-  count: PropTypes.number,
-  commentsList: PropTypes.object,
-  isAuth: PropTypes.bool,
+  children: PropTypes.node,
 };
-
 
 export default memo(CommentsLayout);

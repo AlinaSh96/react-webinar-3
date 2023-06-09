@@ -9,7 +9,8 @@ function CommentLayout({
   onSendComment,
   onCancelComment,
   onNewComment,
-  isAuth
+  isAuth,
+  currentCommentId,
 }) {
   return (
     <div style={{ marginLeft: `${comment.margin}px` }} className="Comment">
@@ -24,15 +25,18 @@ function CommentLayout({
         </p>
       </div>
       <p className="comment__text">{comment.text}</p>
-      <button className="comment__reply" onClick={onNewComment}>
+      {<button className="comment__reply" onClick={(e) => onNewComment(comment._id)}>
         Ответить
-      </button>
+      </button> }
       <CommentCreate
+        type = 'reply'
         showReplyBox={showReplyBox}
         onSendComment={onSendComment}
         onCancelComment={onCancelComment}
         text={'Новый ответ'}
         isAuth = {isAuth}
+        currentCommentId={currentCommentId}
+        commentId = {comment._id}
       />
     </div>
   );

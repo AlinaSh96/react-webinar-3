@@ -1,7 +1,6 @@
-import { memo, useEffect, useState, useRef } from "react";
+import { memo, useRef } from "react";
 import PropTypes from "prop-types";
 import "./style.css";
-import { comments } from "../../store-redux/exports";
 import { Link } from "react-router-dom";
 
 function CommentCreate({
@@ -11,26 +10,31 @@ function CommentCreate({
   onSendComment,
   text,
   isAuth,
+  currentCommentId,
+  commentId,
+  type
 }) {
-  const [replyText, setReplyText] = useState("");
-  const inputEl = useRef(null);
+
+  const inputEl = useRef(null); // может не буду использовать
+  const conditionForReply = type === 'reply' && (currentCommentId === commentId) && !!showReplyBox;
+  const conditionForNew = type === 'new' && !showReplyBox;
 
   const render = () => {
-    if (!!showReplyBox && isAuth) {
+    if ((conditionForReply || conditionForNew ) && isAuth) {
       return (
         <>
-          <p>{text}</p>
+          <p className="text">{text}</p>
           <input className="textarea" type="textarea"></input>
-          <button onClick={onCancelComment}>Отмена</button>
+          {type === 'reply' && <button className="button_cancel"  onClick={onCancelComment}>Отмена</button>}
           <button onClick={onSendComment}>Отправить</button>
         </>
       );
-    } else if (!!showReplyBox && !isAuth) {
+    } else if (!isAuth && (conditionForReply || conditionForNew )) {
       return (
         <>
         <div className="auth">
           <p><Link to="/login">Войдите</Link>, чтобы иметь возможность ответить.</p>
-          <button className="cancel" onClick={onCancelComment}>Отмена</button>
+          {type === 'reply' && <button className="cancel" onClick={onCancelComment}>Отмена</button>}
         </div>
         </>
       );
@@ -38,22 +42,27 @@ function CommentCreate({
   };
 
   return (
-    <>
-      {!!showReplyBox && (
         <div className="CommentCreate">
            {render()}
         </div>
-      )}
-    </>
   );
 }
 
-// Controls.propTypes = {
-//   onAdd: PropTypes.func
-// };
+CommentCreate.propTypes = {
+  parentId: PropTypes.string,
+  showReplyBox: PropTypes.bool,
+  onCancelComment: PropTypes.func,
+  onSendComment: PropTypes.func,
+  text: PropTypes.string,
+  isAuth: PropTypes.bool,
+  currentCommentId: PropTypes.string,
+  commentId: PropTypes.string,
+  type: PropTypes.string.isRequired,
+};
 
-// Controls.defaultProps = {
-//   onAdd: () => {}
-// }
+CommentCreate.defaultProps = {
+  onCancelComment: () => {},
+  onSendComment: () => {}
+}
 
 export default memo(CommentCreate);
