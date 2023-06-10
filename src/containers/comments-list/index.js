@@ -86,7 +86,6 @@ function CommentsList({ articleId }) {
               onCancelComment={callbacks.onCancelComment}
               onSendComment={callbacks.onSendComment}
               currentCommentId={currentCommentId}
-              commentId={comment._id}
               isAuth={selectCustom.exists}
               articleId={articleId}
               currentUserId={selectCustom.currentUserId}
