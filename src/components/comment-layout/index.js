@@ -2,6 +2,7 @@ import { memo } from "react";
 import PropTypes from "prop-types";
 import "./style.css";
 import CommentCreate from "../comment-create";
+import formatDate from "../../utils/format-date"
 
 function CommentLayout({
   comment,
@@ -18,11 +19,7 @@ function CommentLayout({
       <div className="comment__info">
         <p className="comment__authorName">{comment.authorName}</p>
         <p className="comment__createdAt">
-          {new Date(comment.createdAt).toLocaleString("ru", {
-            year: "numeric",
-            month: "long",
-            day: "numeric",
-          })}
+          {formatDate(comment.createdAt)}
         </p>
       </div>
       <p className="comment__text">{comment.text}</p>

@@ -26,13 +26,11 @@ export default {
 
   create: (text, type, parentId) => {
     return async (dispatch, getState, services) => {
-      // Сброс текущего товара и установка признака ожидания загрузки
       dispatch({ type: "comments/create-start" });
       const token = localStorage.getItem("token");
       if (token) {
         try {
           services.api.setHeader(config.tokenHeader, token);
-       //   console.log('try');
           const res = await services.api.request({
             url: '/api/v1/comments?fields=_id,text,dateCreate,author(profile(name)),parent(_id,_type)',
             method: 'POST',
