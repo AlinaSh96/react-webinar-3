@@ -47,6 +47,7 @@ function CommentCreate({
               </button>
             )}
             <button
+              disabled={!input}
               onClick={(e) => onSendComment(input, replyMap[type], idMap[type])}
             >
               {t("send")}
