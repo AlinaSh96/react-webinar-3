@@ -13,7 +13,8 @@ function CommentLayout({
   isAuth,
   currentCommentId,
   articleId,
-  currentUserId
+  currentUserId,
+  t
 }) {
   const authorIsMe = currentUserId === comment.authorId;
   const authorNameClass = authorIsMe ? "comment__authorName authorIsMe" : "comment__authorName";
@@ -27,18 +28,19 @@ function CommentLayout({
       </div>
       <p className="comment__text">{comment.text}</p>
       {<button className="comment__reply" onClick={(e) => onNewComment(comment._id)}>
-        Ответить
+        {t("answer")}
       </button> }
       <CommentCreate
-        type = 'reply'
+        type = "reply"
         showReplyBox={showReplyBox}
         onSendComment={onSendComment}
         onCancelComment={onCancelComment}
-        text={'Новый ответ'}
+        text={t("new answer")}
         isAuth = {isAuth}
         currentCommentId={currentCommentId}
         commentId = {comment._id}
         articleId={articleId}
+        t={t}
       />
     </div>
   );

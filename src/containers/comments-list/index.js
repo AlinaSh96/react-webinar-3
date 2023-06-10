@@ -14,6 +14,7 @@ import CommentLayout from "../../components/comment-layout";
 
 function CommentsList({ articleId }) {
   const dispatch = useDispatch();
+  const {t} = useTranslate();
 
   const [showReplyBox, setShowReplyBox] = useState(false);
   const [currentCommentId, setCurrentCommentId] = useState("");
@@ -72,7 +73,7 @@ function CommentsList({ articleId }) {
   return (
     <Spinner active={select.waiting}>
       <CommentsLayout>
-        <h2>Комментарии ({commentList?.length || 0})</h2>
+        <h2>{t('comment')} ({commentList?.length || 0})</h2>
         {commentList?.length &&
           commentList.map((comment) => (
             <CommentLayout
@@ -87,18 +88,20 @@ function CommentsList({ articleId }) {
               isAuth={selectCustom.exists}
               articleId={articleId}
               currentUserId={selectCustom.currentUserId}
+              t={t}
             />
           ))}
         <CommentCreate
-        type = 'new'
+        type = "new"
         showReplyBox={showReplyBox}
         onSendComment={callbacks.onSendComment}
         onCancelComment={callbacks.onCancelComment}
         onNewComment={callbacks.onNewComment}
-        text={'Новый комментарий'}
+        text={t("new comment")}
         isAuth={selectCustom.exists}
         currentCommentId={currentCommentId}
         articleId={articleId}
+        t={t}
       />
       </CommentsLayout>
     </Spinner>

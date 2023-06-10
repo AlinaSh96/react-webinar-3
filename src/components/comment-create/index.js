@@ -18,6 +18,7 @@ function CommentCreate({
   commentId,
   type,
   articleId,
+  t
 }) {
   const [input, setInput] = useState('');
   const conditionForReply = type === 'reply' && (currentCommentId === commentId) && !!showReplyBox;
@@ -34,16 +35,27 @@ function CommentCreate({
         <>
           <p className="text">{text}</p>
           <input className="textarea" type="textarea" onChange={(e) => setInput(e.target.value)}></input>
-          {type === 'reply' && <button className="button_cancel" onClick={onCancelComment}>Отмена</button>}
-          <button onClick={(e) => onSendComment(input, replyMap[type], idMap[type])}>Отправить</button>
+          <div className="buttons">
+          {type === 'reply' && <button className="button_cancel" onClick={onCancelComment}>{t("cancel")}</button>}
+          <button onClick={(e) => onSendComment(input, replyMap[type], idMap[type])}>{t("send")}</button>
+          </div>
         </>
       );
-    } else if (!isAuth && (conditionForReply || conditionForNew )) {
+    } else if (!isAuth && conditionForReply ) {
       return (
         <>
         <div className="auth">
-          <p><Link to="/login">Войдите</Link>, чтобы иметь возможность ответить.</p>
-          {type === 'reply' && <button className="cancel" onClick={onCancelComment}>Отмена</button>}
+          <p><Link to="/login">{t("login")}</Link>, {t("to be able to reply")}.</p>
+          {type === 'reply' && <button className="cancel" onClick={onCancelComment}>{t("cancel")}</button>}
+        </div>
+        </>
+      );
+    } else if (!isAuth &&  conditionForNew ) {
+      return (
+        <>
+        <div className="auth">
+          <p><Link to="/login">{t("login")}</Link>, {t("to be able to comment")}.</p>
+          {type === 'reply' && <button className="cancel" onClick={onCancelComment}>{t("cancel")}</button>}
         </div>
         </>
       );
