@@ -1,3 +1,5 @@
+import config from "../../config";
+
 export default {
   /**
    * Загрузка товара
@@ -10,7 +12,7 @@ export default {
 
       try {
         const res = await services.api.request({
-          url: `/api/v1/comments?search[parent]=${id}&fields=items(_id,text,dateCreate,author(profile(name)),parent(_id,_type)),count`,
+          url: `/api/v1/comments?search[parent]=${id}&fields=items(_id,text,dateCreate,author(profile(name)),parent(_id,_type)),count&limit=*`,
         });
         dispatch({
           type: "comments/load-success",
@@ -22,26 +24,27 @@ export default {
     };
   },
 
-  
-  create: () => {
+  create: (text, type, parentId) => {
     return async (dispatch, getState, services) => {
       // Сброс текущего товара и установка признака ожидания загрузки
       dispatch({ type: "comments/create-start" });
       const token = localStorage.getItem("token");
       if (token) {
         try {
-          this.services.api.setHeader(this.config.tokenHeader, token);
-          const res = await this.services.api.request({
-            url: '/api/v1/comments',
+          services.api.setHeader(config.tokenHeader, token);
+       //   console.log('try');
+          const res = await services.api.request({
+            url: '/api/v1/comments?fields=_id,text,dateCreate,author(profile(name)),parent(_id,_type)',
             method: 'POST',
             body: JSON.stringify({
-              "_id": "string",
-              "text": "test",
-              "parent":{}
-            })
+              text: text,
+                    parent: {
+                      _id: parentId,
+                      _type: type
+                    }
+              })
           });
-          console.log(res)
-          // Товар загружен успешно
+           console.log(res)
           dispatch({
             type: "comments/create-success",
             // payload: { data: res.data.result.items },

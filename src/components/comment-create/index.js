@@ -1,10 +1,14 @@
-import { memo, useRef } from "react";
+import { memo, useMemo, useState } from "react";
 import PropTypes from "prop-types";
 import "./style.css";
 import { Link } from "react-router-dom";
 
+const replyMap = {
+  'new': 'article',
+  'reply': 'comment',
+}
+
 function CommentCreate({
-  parentId,
   showReplyBox,
   onCancelComment,
   onSendComment,
@@ -12,21 +16,26 @@ function CommentCreate({
   isAuth,
   currentCommentId,
   commentId,
-  type
+  type,
+  articleId,
 }) {
-
-  const inputEl = useRef(null); // может не буду использовать
+  const [input, setInput] = useState('');
   const conditionForReply = type === 'reply' && (currentCommentId === commentId) && !!showReplyBox;
   const conditionForNew = type === 'new' && !showReplyBox;
+
+  const idMap =  {
+      'new': articleId,
+      'reply': commentId,
+    }
 
   const render = () => {
     if ((conditionForReply || conditionForNew ) && isAuth) {
       return (
         <>
           <p className="text">{text}</p>
-          <input className="textarea" type="textarea"></input>
+          <input className="textarea" type="textarea" onChange={(e) => setInput(e.target.value)}></input>
           {type === 'reply' && <button className="button_cancel"  onClick={onCancelComment}>Отмена</button>}
-          <button onClick={onSendComment}>Отправить</button>
+          <button onClick={(e) => onSendComment(input, replyMap[type], idMap[type])}>Отправить</button>
         </>
       );
     } else if (!isAuth && (conditionForReply || conditionForNew )) {

@@ -59,8 +59,8 @@ function CommentsList({ articleId }) {
       setCurrentCommentId(id);
     }, []),
     onCancelComment: useCallback(() => setShowReplyBox(false), []),
-    onSendComment: useCallback((parentId) =>
-      dispatch(commentsActions.create(parentId), [])
+    onSendComment: useCallback((text, type, parentId) =>
+      dispatch(commentsActions.create(text, type, parentId), [])
     ),
   };
 
@@ -80,6 +80,7 @@ function CommentsList({ articleId }) {
               currentCommentId={currentCommentId}
               commentId={comment._id}
               isAuth={selectCustom.exists}
+              articleId={articleId}
             />
           ))}
         <CommentCreate
@@ -91,6 +92,7 @@ function CommentsList({ articleId }) {
         text={'Новый комментарий'}
         isAuth={selectCustom.exists}
         currentCommentId={currentCommentId}
+        articleId={articleId}
       />
       </CommentsLayout>
     </Spinner>

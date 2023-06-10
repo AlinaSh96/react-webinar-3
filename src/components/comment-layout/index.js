@@ -11,6 +11,7 @@ function CommentLayout({
   onNewComment,
   isAuth,
   currentCommentId,
+  articleId
 }) {
   return (
     <div style={{ marginLeft: `${comment.margin}px` }} className="Comment">
@@ -37,6 +38,7 @@ function CommentLayout({
         isAuth = {isAuth}
         currentCommentId={currentCommentId}
         commentId = {comment._id}
+        articleId={articleId}
       />
     </div>
   );
