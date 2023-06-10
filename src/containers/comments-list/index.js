@@ -14,9 +14,6 @@ import CommentLayout from "../../components/comment-layout";
 
 function CommentsList({ articleId }) {
   const dispatch = useDispatch();
-  useEffect(() => {
-    dispatch(commentsActions.loadById(articleId));
-  }, []);
 
   const [showReplyBox, setShowReplyBox] = useState(false);
   const [currentCommentId, setCurrentCommentId] = useState("");
@@ -26,9 +23,15 @@ function CommentsList({ articleId }) {
       comments: state.comments.data.items,
       waiting: state.comments.waiting,
       count: state.comments.data.count,
+      newComment: state.comments.newComment,
     }),
     shallowequal
   );
+
+  useEffect(() => {
+    dispatch(commentsActions.loadById(articleId));
+    setShowReplyBox(false);
+  }, [select.newComment]);
 
   const selectCustom = useSelector((state) => ({
     exists: state.session.exists,

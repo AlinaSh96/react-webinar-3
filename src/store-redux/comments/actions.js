@@ -47,7 +47,7 @@ export default {
            console.log(res)
           dispatch({
             type: "comments/create-success",
-            // payload: { data: res.data.result.items },
+            payload: { data: res.data.result },
           });
         } catch (e) {
           //Ошибка загрузки

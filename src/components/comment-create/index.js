@@ -1,4 +1,4 @@
-import { memo, useMemo, useState } from "react";
+import { memo, useState } from "react";
 import PropTypes from "prop-types";
 import "./style.css";
 import { Link } from "react-router-dom";
@@ -9,7 +9,7 @@ const replyMap = {
 }
 
 function CommentCreate({
-  showReplyBox,
+  showReplyBox = false,
   onCancelComment,
   onSendComment,
   text,
@@ -34,7 +34,7 @@ function CommentCreate({
         <>
           <p className="text">{text}</p>
           <input className="textarea" type="textarea" onChange={(e) => setInput(e.target.value)}></input>
-          {type === 'reply' && <button className="button_cancel"  onClick={onCancelComment}>Отмена</button>}
+          {type === 'reply' && <button className="button_cancel" onClick={onCancelComment}>Отмена</button>}
           <button onClick={(e) => onSendComment(input, replyMap[type], idMap[type])}>Отправить</button>
         </>
       );

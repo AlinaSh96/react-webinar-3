@@ -17,10 +17,10 @@ function reducer(state = initialState, action) {
       return { ...state, data: {}, waiting: false }; //@todo текст ошибки сохранить?
 
     case "comments/create-start":
-      return { ...state, data: {}, waiting: true };
+      return { ...state, waiting: true };
 
     case "comments/create-success":
-      return { ...state, data, waiting: false };
+      return { ...state,  newComment: action.payload.data, waiting: false };
 
     case "comments/create-error":
       return { ...state, waiting: false }; //@todo текст ошибки сохранить?
