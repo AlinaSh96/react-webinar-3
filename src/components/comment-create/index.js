@@ -35,11 +35,11 @@ function CommentCreate({
       return (
         <>
           <p className="text">{text}</p>
-          <input
+          <textarea
             className="textarea"
             type="textarea"
             onChange={(e) => setInput(e.target.value)}
-          ></input>
+          ></textarea>
           <div className="buttons">
             {type === "reply" && (
               <button className="button_cancel" onClick={onCancelComment}>
