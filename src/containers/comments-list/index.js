@@ -25,15 +25,13 @@ function CommentsList({ articleId }) {
       comments: state.comments.data.items,
       waiting: state.comments.waiting,
       count: state.comments.data.count,
-      newComment: state.comments.newComment,
     }),
     shallowequal
   );
 
   useEffect(() => {
     dispatch(commentsActions.loadById(articleId));
-    setShowReplyBox(false);
-  }, [select.newComment]);
+  }, []);
 
   const selectCustom = useSelector((state) => ({
     exists: state.session.exists,
@@ -67,7 +65,8 @@ function CommentsList({ articleId }) {
     }, []),
     onCancelComment: useCallback(() => setShowReplyBox(false), []),
     onSendComment: useCallback((text, type, parentId) =>
-      dispatch(commentsActions.create(text, type, parentId), [])
+      dispatch(commentsActions.create(text, type, parentId),
+      setShowReplyBox(false), [])
     ),
   };
 

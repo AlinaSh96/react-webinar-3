@@ -20,7 +20,7 @@ function reducer(state = initialState, action) {
       return { ...state, waiting: true };
 
     case "comments/create-success":
-      return { ...state,  newComment: action.payload.data, waiting: false };
+      return { ...state,  data: {...state.data, items: [...state.data.items, action.payload.data]}, waiting: false };
 
     case "comments/create-error":
       return { ...state, waiting: false }; //@todo текст ошибки сохранить?
