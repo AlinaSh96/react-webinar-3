@@ -35,6 +35,7 @@ function CommentsList({ articleId }) {
 
   const selectCustom = useSelector((state) => ({
     exists: state.session.exists,
+    currentUserId: state.session.user._id,
   }));
 
   const commentList = useMemo(() => {
@@ -48,6 +49,7 @@ function CommentsList({ articleId }) {
         _id: item._id,
         createdAt: item.dateCreate,
         authorName: item.author.profile.name,
+        authorId: item.author._id,
         text: item.text,
         level,
         margin: level * 30,
@@ -84,6 +86,7 @@ function CommentsList({ articleId }) {
               commentId={comment._id}
               isAuth={selectCustom.exists}
               articleId={articleId}
+              currentUserId={selectCustom.currentUserId}
             />
           ))}
         <CommentCreate

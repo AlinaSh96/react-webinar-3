@@ -12,12 +12,15 @@ function CommentLayout({
   onNewComment,
   isAuth,
   currentCommentId,
-  articleId
+  articleId,
+  currentUserId
 }) {
+  const authorIsMe = currentUserId === comment.authorId;
+  const authorNameClass = authorIsMe ? "comment__authorName authorIsMe" : "comment__authorName";
   return (
     <div style={{ marginLeft: `${comment.margin}px` }} className="Comment">
       <div className="comment__info">
-        <p className="comment__authorName">{comment.authorName}</p>
+        <p className={authorNameClass}  >{comment.authorName}</p>
         <p className="comment__createdAt">
           {formatDate(comment.createdAt)}
         </p>
