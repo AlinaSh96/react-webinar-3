@@ -1,8 +1,9 @@
 import { memo } from "react";
 import PropTypes from "prop-types";
-import "./style.css";
 import CommentCreate from "../comment-create";
-import formatDate from "../../utils/format-date"
+import formatDate from "../../utils/format-date";
+import {cn as bem} from '@bem-react/classname';
+import "./style.css";
 
 function CommentLayout({
   comment,
@@ -16,18 +17,19 @@ function CommentLayout({
   currentUserId,
   t
 }) {
+  const cn = bem("Comment");
   const authorIsMe = currentUserId === comment.authorId;
-  const authorNameClass = authorIsMe ? "comment__authorName authorIsMe" : "comment__authorName";
+  const authorNameClass = authorIsMe ? "authorName authorIsMe" : "authorName";
   return (
     <div style={{ marginLeft: `${comment.margin}px` }} className="Comment">
-      <div className="comment__info">
-        <p className={authorNameClass}  >{comment.authorName}</p>
-        <p className="comment__createdAt">
+      <div className={cn("info")}>
+        <p className={authorNameClass}>{comment.authorName}</p>
+        <p className={cn("createdAt")}>
           {formatDate(comment.createdAt)}
         </p>
       </div>
-      <p className="comment__text">{comment.text}</p>
-      {<button className="comment__reply" onClick={(e) => onNewComment(comment._id)}>
+      <p className={cn("text")}>{comment.text}</p>
+      {<button className={cn("reply")} onClick={(e) => onNewComment(comment._id)}>
         {t("answer")}
       </button> }
       <CommentCreate

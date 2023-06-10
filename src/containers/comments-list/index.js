@@ -1,20 +1,21 @@
 import { memo, useEffect, useMemo, useCallback, useState } from "react";
 import { useDispatch, useSelector as useSelectorRedux } from "react-redux";
+import useTranslate from "../../hooks/use-translate";
+import useSelector from "../../hooks/use-selector";
 import commentsActions from "../../store-redux/comments/actions";
 import shallowequal from "shallowequal";
 import PropTypes from "prop-types";
-import Spinner from "../../components/spinner";
 import listToTree from "../../utils/list-to-tree";
 import treeToList from "../../utils/tree-to-list";
-import useTranslate from "../../hooks/use-translate";
+
+import Spinner from "../../components/spinner";
 import CommentsLayout from "../../components/comments-layout";
-import useSelector from "../../hooks/use-selector";
 import CommentCreate from "../../components/comment-create";
 import CommentLayout from "../../components/comment-layout";
 
 function CommentsList({ articleId }) {
   const dispatch = useDispatch();
-  const {t} = useTranslate();
+  const { t } = useTranslate();
 
   const [showReplyBox, setShowReplyBox] = useState(false);
   const [currentCommentId, setCurrentCommentId] = useState("");
@@ -73,7 +74,9 @@ function CommentsList({ articleId }) {
   return (
     <Spinner active={select.waiting}>
       <CommentsLayout>
-        <h2>{t('comment')} ({commentList?.length || 0})</h2>
+        <h2>
+          {t("comment")} ({commentList?.length || 0})
+        </h2>
         {commentList?.length &&
           commentList.map((comment) => (
             <CommentLayout
@@ -92,17 +95,17 @@ function CommentsList({ articleId }) {
             />
           ))}
         <CommentCreate
-        type = "new"
-        showReplyBox={showReplyBox}
-        onSendComment={callbacks.onSendComment}
-        onCancelComment={callbacks.onCancelComment}
-        onNewComment={callbacks.onNewComment}
-        text={t("new comment")}
-        isAuth={selectCustom.exists}
-        currentCommentId={currentCommentId}
-        articleId={articleId}
-        t={t}
-      />
+          type="new"
+          showReplyBox={showReplyBox}
+          onSendComment={callbacks.onSendComment}
+          onCancelComment={callbacks.onCancelComment}
+          onNewComment={callbacks.onNewComment}
+          text={t("new comment")}
+          isAuth={selectCustom.exists}
+          currentCommentId={currentCommentId}
+          articleId={articleId}
+          t={t}
+        />
       </CommentsLayout>
     </Spinner>
   );

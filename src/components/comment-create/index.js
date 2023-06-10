@@ -4,9 +4,9 @@ import "./style.css";
 import { Link } from "react-router-dom";
 
 const replyMap = {
-  'new': 'article',
-  'reply': 'comment',
-}
+  new: "article",
+  reply: "comment",
+};
 
 function CommentCreate({
   showReplyBox = false,
@@ -18,55 +18,77 @@ function CommentCreate({
   commentId,
   type,
   articleId,
-  t
+  t,
 }) {
-  const [input, setInput] = useState('');
-  const conditionForReply = type === 'reply' && (currentCommentId === commentId) && !!showReplyBox;
-  const conditionForNew = type === 'new' && !showReplyBox;
+  const [input, setInput] = useState("");
+  const conditionForReply =
+    type === "reply" && currentCommentId === commentId && !!showReplyBox;
+  const conditionForNew = type === "new" && !showReplyBox;
 
-  const idMap =  {
-      'new': articleId,
-      'reply': commentId,
-    }
+  const idMap = {
+    new: articleId,
+    reply: commentId,
+  };
 
   const render = () => {
-    if ((conditionForReply || conditionForNew ) && isAuth) {
+    if ((conditionForReply || conditionForNew) && isAuth) {
       return (
         <>
           <p className="text">{text}</p>
-          <input className="textarea" type="textarea" onChange={(e) => setInput(e.target.value)}></input>
+          <input
+            className="textarea"
+            type="textarea"
+            onChange={(e) => setInput(e.target.value)}
+          ></input>
           <div className="buttons">
-          {type === 'reply' && <button className="button_cancel" onClick={onCancelComment}>{t("cancel")}</button>}
-          <button onClick={(e) => onSendComment(input, replyMap[type], idMap[type])}>{t("send")}</button>
+            {type === "reply" && (
+              <button className="button_cancel" onClick={onCancelComment}>
+                {t("cancel")}
+              </button>
+            )}
+            <button
+              onClick={(e) => onSendComment(input, replyMap[type], idMap[type])}
+            >
+              {t("send")}
+            </button>
           </div>
         </>
       );
-    } else if (!isAuth && conditionForReply ) {
+    } else if (!isAuth && conditionForReply) {
       return (
         <>
-        <div className="auth">
-          <p><Link to="/login">{t("login")}</Link>, {t("to be able to reply")}.</p>
-          {type === 'reply' && <button className="cancel" onClick={onCancelComment}>{t("cancel")}</button>}
-        </div>
+          <div className="auth">
+            <p>
+              <Link to="/login">{t("login")}</Link>, {t("to be able to reply")}.
+            </p>
+            {type === "reply" && (
+              <button className="cancel" onClick={onCancelComment}>
+                {t("cancel")}
+              </button>
+            )}
+          </div>
         </>
       );
-    } else if (!isAuth &&  conditionForNew ) {
+    } else if (!isAuth && conditionForNew) {
       return (
         <>
-        <div className="auth">
-          <p><Link to="/login">{t("login")}</Link>, {t("to be able to comment")}.</p>
-          {type === 'reply' && <button className="cancel" onClick={onCancelComment}>{t("cancel")}</button>}
-        </div>
+          <div className="auth">
+            <p>
+              <Link to="/login">{t("login")}</Link>,{" "}
+              {t("to be able to comment")}.
+            </p>
+            {type === "reply" && (
+              <button className="cancel" onClick={onCancelComment}>
+                {t("cancel")}
+              </button>
+            )}
+          </div>
         </>
       );
-    } else return null
+    } else return null;
   };
 
-  return (
-        <div className="CommentCreate">
-           {render()}
-        </div>
-  );
+  return <div className="CommentCreate">{render()}</div>;
 }
 
 CommentCreate.propTypes = {
@@ -83,7 +105,7 @@ CommentCreate.propTypes = {
 
 CommentCreate.defaultProps = {
   onCancelComment: () => {},
-  onSendComment: () => {}
-}
+  onSendComment: () => {},
+};
 
 export default memo(CommentCreate);
