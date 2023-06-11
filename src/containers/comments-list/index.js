@@ -1,4 +1,4 @@
-import { memo, useEffect, useMemo, useCallback, useState } from "react";
+import { memo, useEffect, useMemo, useCallback, useState, useRef } from "react";
 import { useDispatch, useSelector as useSelectorRedux } from "react-redux";
 import useTranslate from "../../hooks/use-translate";
 import useSelector from "../../hooks/use-selector";
@@ -19,6 +19,7 @@ function CommentsList({ articleId }) {
 
   const [showReplyBox, setShowReplyBox] = useState(false);
   const [currentCommentId, setCurrentCommentId] = useState("");
+
 
   const select = useSelectorRedux(
     (state) => ({
@@ -69,6 +70,7 @@ function CommentsList({ articleId }) {
       setShowReplyBox(false), [])
     ),
   };
+
 
   return (
     <Spinner active={select.waiting}>

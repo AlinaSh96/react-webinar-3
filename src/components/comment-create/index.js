@@ -21,6 +21,8 @@ function CommentCreate({
   t,
 }) {
   const [input, setInput] = useState("");
+  const [disabled, setDisabled] = useState(true);
+
   const conditionForReply =
     type === "reply" && currentCommentId === commentId && !!showReplyBox;
   const conditionForNew = type === "new" && !showReplyBox;
@@ -30,6 +32,11 @@ function CommentCreate({
     reply: commentId,
   };
 
+  const onChangeInput = (e) => {
+    setInput(e.target.value);
+    e.target.value.trim().length === 0 ? setDisabled(true) : setDisabled(false)
+  }
+
   const render = () => {
     if ((conditionForReply || conditionForNew) && isAuth) {
       return (
@@ -38,7 +45,7 @@ function CommentCreate({
           <textarea
             className="textarea"
             type="textarea"
-            onChange={(e) => setInput(e.target.value)}
+            onChange={(e) => onChangeInput(e)}
           ></textarea>
           <div className="buttons">
             {type === "reply" && (
@@ -47,7 +54,7 @@ function CommentCreate({
               </button>
             )}
             <button
-              disabled={!input}
+              disabled={disabled}
               onClick={(e) => onSendComment(input, replyMap[type], idMap[type])}
             >
               {t("send")}
