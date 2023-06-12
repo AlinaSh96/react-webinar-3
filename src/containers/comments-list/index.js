@@ -6,7 +6,6 @@ import commentsActions from "../../store-redux/comments/actions";
 import shallowequal from "shallowequal";
 import PropTypes from "prop-types";
 import listToTree from "../../utils/list-to-tree";
-import treeToList from "../../utils/tree-to-list";
 
 import Spinner from "../../components/spinner";
 import CommentsLayout from "../../components/comments-layout";
@@ -18,11 +17,8 @@ function CommentsList({ articleId }) {
   const { t } = useTranslate();
 
   const [showReplyBox, setShowReplyBox] = useState(false);
-  const [currentCommentData, setCurrentCommentId] = useState({
-    currentCommentId: '',
-    currentParentId: '',
-  });
-  const [currentParentId, setCurrentParentId] = useState("");
+  const [currentCommentId, setCurrentCommentId] = useState('');
+  const inputRef = useRef(null);
 
   const select = useSelectorRedux(
     (state) => ({
@@ -49,12 +45,9 @@ function CommentsList({ articleId }) {
   }, [select.comments]);
 
   const callbacks = {
-    onNewComment: useCallback((id, parent) => {
+    onNewComment: useCallback((id) => {
       setShowReplyBox(true);
-      setCurrentCommentId({
-        currentCommentId: id,
-        currentParentId: parent,
-      });
+      setCurrentCommentId(id);
     }, []),
     onCancelComment: useCallback(() => setShowReplyBox(false), []),
     onSendComment: useCallback((text, type, parentId) =>
@@ -62,6 +55,13 @@ function CommentsList({ articleId }) {
       setShowReplyBox(false), [])
     ),
   };
+
+  useEffect(() => {
+   if (!inputRef.current) return;
+   inputRef.current.scrollIntoView({ behavior: "smooth", block: "center", inline: "nearest" });
+  }, [currentCommentId]);
+
+
   return (
     <Spinner active={select.waiting}>
       <CommentsLayout>
@@ -71,7 +71,6 @@ function CommentsList({ articleId }) {
  
         {commentList?.length &&
           commentList.map((comment) => (
-            <>
             <CommentLayout
               key={comment._id}
               showReplyBox={showReplyBox}
@@ -79,15 +78,14 @@ function CommentsList({ articleId }) {
               onNewComment={callbacks.onNewComment}
               onCancelComment={callbacks.onCancelComment}
               onSendComment={callbacks.onSendComment}
-              currentCommentId={currentCommentData.currentCommentId}
+              currentCommentId={currentCommentId}
               isAuth={selectCustom.exists}
               articleId={articleId}
               currentUserId={selectCustom.currentUserId}
               t={t}
               level={0}
-              currentParentId={comment.parent._id}
+              inputRef={inputRef}
             />
-            </>
           ))}
         <CommentCreate
           type="new"
@@ -97,7 +95,6 @@ function CommentsList({ articleId }) {
           onNewComment={callbacks.onNewComment}
           text={t("new comment")}
           isAuth={selectCustom.exists}
-          currentCommentId={currentCommentData.currentCommentId}
           articleId={articleId}
           t={t}
         />

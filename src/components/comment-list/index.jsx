@@ -2,7 +2,7 @@ import { memo } from "react";
 import PropTypes from "prop-types";
 import CommentLayout from "../comment-layout";
 
-function CommentsListRender({ level, t, articleId, showReplyBox, comments, onNewComment, onCancelComment, onSendComment, isAuth, currentCommentId, currentUserId}) {
+function CommentsListRender({inputRef, level, t, articleId, showReplyBox, comments, onNewComment, onCancelComment, onSendComment, isAuth, currentCommentId, currentUserId}) {
   return (
     
     <div className="CommentsList">
@@ -22,7 +22,7 @@ function CommentsListRender({ level, t, articleId, showReplyBox, comments, onNew
               currentUserId={currentUserId}
               t={t}
               level={level+1}
-              currentParentId={comment.parent._id}
+              inputRef={inputRef}
             />
             
           ))}

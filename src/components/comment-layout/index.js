@@ -18,16 +18,12 @@ function CommentLayout({
   currentUserId,
   t,
   level,
-  curentParent,
-  currentParentId,
+  inputRef
 }) {
   const cn = bem("Comment");
   const authorIsMe = currentUserId === comment.author._id;
   const authorNameClass = authorIsMe ? "authorName authorIsMe" : "authorName";
 
-  const replyComment = (id, parentId) => {
-      onNewComment(id, parentId)
-  }
   return (
     <div>
       <div style={{ marginLeft: `${level * 10}px` }} className="Comment">
@@ -38,7 +34,7 @@ function CommentLayout({
         <p className={cn("text")}>{comment.text}</p>
         <button
           className={cn("reply")}
-          onClick={(e) => replyComment(comment._id, comment.parent._id)}
+          onClick={(e) => onNewComment(comment._id)}
         >
           {t("answer")}
         </button>
@@ -57,7 +53,7 @@ function CommentLayout({
             currentUserId={currentUserId}
             t={t}
             level={level+1}
-            curentParent={curentParent}
+            inputRef={inputRef}
           />
         </div>
         
@@ -73,8 +69,8 @@ function CommentLayout({
         commentId={comment._id}
         articleId={articleId}
         t={t}
-        currentParentId={currentParentId}
         level={level+1}
+        inputRef={inputRef}
       /> 
     </div>
   );
