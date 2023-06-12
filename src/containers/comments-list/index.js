@@ -18,8 +18,11 @@ function CommentsList({ articleId }) {
   const { t } = useTranslate();
 
   const [showReplyBox, setShowReplyBox] = useState(false);
-  const [currentCommentId, setCurrentCommentId] = useState("");
-
+  const [currentCommentData, setCurrentCommentId] = useState({
+    currentCommentId: '',
+    currentParentId: '',
+  });
+  const [currentParentId, setCurrentParentId] = useState("");
 
   const select = useSelectorRedux(
     (state) => ({
@@ -41,28 +44,17 @@ function CommentsList({ articleId }) {
 
   const commentList = useMemo(() => {
     if (select.count) {
-      const prepare = select.comments.map((item) => ({
-        ...item,
-        parent:
-          item.parent._type === "article" ? null : { _id: item.parent._id },
-      }));
-      return treeToList(listToTree(prepare), (item, level) => ({
-        _id: item._id,
-        createdAt: item.dateCreate,
-        authorName: item.author.profile.name,
-        authorId: item.author._id,
-        text: item.text,
-        level,
-        margin: level * 30,
-      }));
+      return listToTree(select.comments)
     }
   }, [select.comments]);
 
   const callbacks = {
-    onNewComment: useCallback((id) => {
-      console.log(id);
+    onNewComment: useCallback((id, parent) => {
       setShowReplyBox(true);
-      setCurrentCommentId(id);
+      setCurrentCommentId({
+        currentCommentId: id,
+        currentParentId: parent,
+      });
     }, []),
     onCancelComment: useCallback(() => setShowReplyBox(false), []),
     onSendComment: useCallback((text, type, parentId) =>
@@ -70,16 +62,16 @@ function CommentsList({ articleId }) {
       setShowReplyBox(false), [])
     ),
   };
-
-
   return (
     <Spinner active={select.waiting}>
       <CommentsLayout>
         <h2>
-          {t("comment")} ({commentList?.length || 0})
+          {t("comment")} ({select.count || 0})
         </h2>
+ 
         {commentList?.length &&
           commentList.map((comment) => (
+            <>
             <CommentLayout
               key={comment._id}
               showReplyBox={showReplyBox}
@@ -87,12 +79,15 @@ function CommentsList({ articleId }) {
               onNewComment={callbacks.onNewComment}
               onCancelComment={callbacks.onCancelComment}
               onSendComment={callbacks.onSendComment}
-              currentCommentId={currentCommentId}
+              currentCommentId={currentCommentData.currentCommentId}
               isAuth={selectCustom.exists}
               articleId={articleId}
               currentUserId={selectCustom.currentUserId}
               t={t}
+              level={0}
+              currentParentId={comment.parent._id}
             />
+            </>
           ))}
         <CommentCreate
           type="new"
@@ -102,7 +97,7 @@ function CommentsList({ articleId }) {
           onNewComment={callbacks.onNewComment}
           text={t("new comment")}
           isAuth={selectCustom.exists}
-          currentCommentId={currentCommentId}
+          currentCommentId={currentCommentData.currentCommentId}
           articleId={articleId}
           t={t}
         />

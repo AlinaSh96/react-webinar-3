@@ -19,12 +19,14 @@ function CommentCreate({
   type,
   articleId,
   t,
+  currentParentId,
+  level
 }) {
   const [input, setInput] = useState("");
   const [disabled, setDisabled] = useState(true);
 
   const conditionForReply =
-    type === "reply" && currentCommentId === commentId && !!showReplyBox;
+    type === "reply" && (currentCommentId === commentId || currentParentId === commentId) && !!showReplyBox;
   const conditionForNew = type === "new" && !showReplyBox;
 
   const idMap = {
@@ -40,7 +42,7 @@ function CommentCreate({
   const render = () => {
     if ((conditionForReply || conditionForNew) && isAuth) {
       return (
-        <>
+        <div style={{ marginLeft: `${level * 10}px` }}>
           <p className="text">{text}</p>
           <textarea
             className="textarea"
@@ -60,7 +62,7 @@ function CommentCreate({
               {t("send")}
             </button>
           </div>
-        </>
+        </div>
       );
     } else if (!isAuth && conditionForReply) {
       return (

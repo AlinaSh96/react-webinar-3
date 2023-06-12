@@ -2,8 +2,9 @@ import { memo } from "react";
 import PropTypes from "prop-types";
 import CommentCreate from "../comment-create";
 import formatDate from "../../utils/format-date";
-import {cn as bem} from '@bem-react/classname';
+import { cn as bem } from "@bem-react/classname";
 import "./style.css";
+import CommentsListRender from "../../components/comment-list";
 
 function CommentLayout({
   comment,
@@ -15,35 +16,66 @@ function CommentLayout({
   currentCommentId,
   articleId,
   currentUserId,
-  t
+  t,
+  level,
+  curentParent,
+  currentParentId,
 }) {
   const cn = bem("Comment");
-  const authorIsMe = currentUserId === comment.authorId;
+  const authorIsMe = currentUserId === comment.author._id;
   const authorNameClass = authorIsMe ? "authorName authorIsMe" : "authorName";
+
+  const replyComment = (id, parentId) => {
+      onNewComment(id, parentId)
+  }
   return (
-    <div style={{ marginLeft: `${comment.margin}px` }} className="Comment">
-      <div className={cn("info")}>
-        <p className={authorNameClass}>{comment.authorName}</p>
-        <p className={cn("createdAt")}>
-          {formatDate(comment.createdAt)}
-        </p>
+    <div>
+      <div style={{ marginLeft: `${level * 10}px` }} className="Comment">
+        <div className={cn("info")}>
+          <p className={authorNameClass}>{comment.author.profile.name}</p>
+          <p className={cn("createdAt")}>{formatDate(comment.dateCreate)}</p>
+        </div>
+        <p className={cn("text")}>{comment.text}</p>
+        <button
+          className={cn("reply")}
+          onClick={(e) => replyComment(comment._id, comment.parent._id)}
+        >
+          {t("answer")}
+        </button>
       </div>
-      <p className={cn("text")}>{comment.text}</p>
-      {<button className={cn("reply")} onClick={(e) => onNewComment(comment._id)}>
-        {t("answer")}
-      </button> }
-      <CommentCreate
-        type = "reply"
+      {!!comment.children.length && (
+        <div>
+          <CommentsListRender
+            showReplyBox={showReplyBox}
+            comments={comment.children}
+            onNewComment={onNewComment}
+            onCancelComment={onCancelComment}
+            onSendComment={onSendComment}
+            currentCommentId={currentCommentId}
+            isAuth={isAuth}
+            articleId={articleId}
+            currentUserId={currentUserId}
+            t={t}
+            level={level+1}
+            curentParent={curentParent}
+          />
+        </div>
+        
+      )}
+   <CommentCreate
+        type="reply"
         showReplyBox={showReplyBox}
         onSendComment={onSendComment}
         onCancelComment={onCancelComment}
         text={t("new answer")}
-        isAuth = {isAuth}
+        isAuth={isAuth}
         currentCommentId={currentCommentId}
-        commentId = {comment._id}
+        commentId={comment._id}
         articleId={articleId}
         t={t}
-      />
+        currentParentId={currentParentId}
+        level={level+1}
+      /> 
     </div>
   );
 }
@@ -51,10 +83,10 @@ function CommentLayout({
 CommentLayout.propTypes = {
   articleId: PropTypes.string,
   comment: PropTypes.object,
-  showReplyBox : PropTypes.bool,
-  onSendComment : PropTypes.func,
-  onCancelComment : PropTypes.func,
-  onNewComment : PropTypes.func,
+  showReplyBox: PropTypes.bool,
+  onSendComment: PropTypes.func,
+  onCancelComment: PropTypes.func,
+  onNewComment: PropTypes.func,
   isAuth: PropTypes.bool,
 };
 
@@ -62,6 +94,6 @@ CommentLayout.defaultProps = {
   onSendComment: () => {},
   onCancelComment: () => {},
   onNewComment: () => {},
-}
+};
 
 export default memo(CommentLayout);
