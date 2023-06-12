@@ -23,10 +23,10 @@ function CommentLayout({
   const cn = bem("Comment");
   const authorIsMe = currentUserId === comment.author._id;
   const authorNameClass = authorIsMe ? "authorName authorIsMe" : "authorName";
-
+  const margin = level > 30 ? 0 : level * 10;
   return (
     <div>
-      <div style={{ marginLeft: `${level * 10}px` }} className="Comment">
+      <div style={{ marginLeft: `${margin}px` }} className="Comment">
         <div className={cn("info")}>
           <p className={authorNameClass}>{comment.author.profile.name}</p>
           <p className={cn("createdAt")}>{formatDate(comment.dateCreate)}</p>
@@ -69,7 +69,7 @@ function CommentLayout({
         commentId={comment._id}
         articleId={articleId}
         t={t}
-        level={level+1}
+        margin={margin}
         inputRef={inputRef}
       /> 
     </div>

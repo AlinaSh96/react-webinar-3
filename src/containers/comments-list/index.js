@@ -22,12 +22,13 @@ function CommentsList({ articleId }) {
 
   const select = useSelectorRedux(
     (state) => ({
-      comments: state.comments.data.items,
+      comments: state.comments?.data.items,
       waiting: state.comments.waiting,
       count: state.comments.data.count,
     }),
     shallowequal
   );
+
 
   useEffect(() => {
     dispatch(commentsActions.loadById(articleId));

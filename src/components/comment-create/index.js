@@ -1,7 +1,7 @@
 import { memo, useState } from "react";
 import PropTypes from "prop-types";
 import "./style.css";
-import { Link } from "react-router-dom";
+import { Link, useLocation } from "react-router-dom";
 
 const replyMap = {
   new: "article",
@@ -19,11 +19,12 @@ function CommentCreate({
   type,
   articleId,
   t,
-  level,
-  inputRef
+  inputRef,
+  margin
 }) {
   const [input, setInput] = useState("");
   const [disabled, setDisabled] = useState(true);
+  const location = useLocation();
 
   const conditionForReply =
     type === "reply" && currentCommentId === commentId && !!showReplyBox;
@@ -42,7 +43,7 @@ function CommentCreate({
   const render = () => {
     if ((conditionForReply || conditionForNew) && isAuth) {
       return (
-        <div ref={inputRef} style={{ marginLeft: `${level * 10}px` }}>
+        <div ref={inputRef} style={{ marginLeft: `${margin}px` }}>
           <p className="text">{text}</p>
           <textarea
             className="textarea"
@@ -66,10 +67,9 @@ function CommentCreate({
       );
     } else if (!isAuth && conditionForReply) {
       return (
-        <>
-          <div className="auth">
+          <div className="auth" style={{ marginLeft: `${margin}px`}}>
             <p>
-              <Link to="/login">{t("login")}</Link>, {t("to be able to reply")}.
+              <Link state={{ back: location }} to="/login">{t("login")}</Link>, {t("to be able to reply")}.
             </p>
             {type === "reply" && (
               <button className="cancel" onClick={onCancelComment}>
@@ -77,14 +77,13 @@ function CommentCreate({
               </button>
             )}
           </div>
-        </>
       );
     } else if (!isAuth && conditionForNew) {
       return (
         <>
           <div className="auth">
             <p>
-              <Link to="/login">{t("login")}</Link>,{" "}
+              <Link state={{ back: location }} to="/login">{t("login")}</Link>,{" "}
               {t("to be able to comment")}.
             </p>
             {type === "reply" && (

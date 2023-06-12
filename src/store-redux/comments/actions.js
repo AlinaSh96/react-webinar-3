@@ -42,6 +42,7 @@ export default {
                     }
               })
           });
+          console.log( res.data.result)
           dispatch({
             type: "comments/create-success",
             payload: { data: res.data.result },
