@@ -41,7 +41,7 @@ function CommentsList({ articleId }) {
 
   const commentList = useMemo(() => {
     if (select.count) {
-      return listToTree(select.comments)
+      return listToTree(select.comments, '_id', 'article')
     }
   }, [select.comments]);
 
